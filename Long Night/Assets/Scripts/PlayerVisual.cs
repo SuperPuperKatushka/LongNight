@@ -21,7 +21,7 @@ public class PlayerVisual : MonoBehaviour
     {
         //animator.SetBool(IS_RUNNING, Player.Instance.IsRunning());
         Vector2 inputVector = GameInput.Instance.GetMovementVector();
-        inputVector = inputVector.normalized;
+        
 
         animator.SetFloat(HORIZONTAL, inputVector.x);
         animator.SetFloat(VERTICAL, inputVector.y);
