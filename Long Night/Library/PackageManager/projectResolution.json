@@ -9,6 +9,16 @@
     "C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.36f1\\Editor\\Data\\Resources\\PackageManager\\BuiltInPackages\\BuiltInPackagesCombined.sha1"
   ],
   "outputs": {
+    "com.unity.cinemachine@3.1.3": {
+      "name": "com.unity.cinemachine",
+      "displayName": "Cinemachine",
+      "resolvedPath": "C:\\Users\\user\\Documents\\GitHub\\LongNight\\Long Night\\Library\\PackageCache\\com.unity.cinemachine@624f919d8cdd",
+      "fingerprint": "624f919d8cdd376712eda21b43abcb0330c023e2",
+      "editorCompatibility": "2022.3.0a1",
+      "version": "3.1.3",
+      "source": "registry",
+      "testable": false
+    },
     "com.unity.collab-proxy@2.6.0": {
       "name": "com.unity.collab-proxy",
       "displayName": "Version Control",
@@ -510,6 +520,16 @@
       "source": "registry",
       "testable": false
     },
+    "com.unity.splines@2.7.2": {
+      "name": "com.unity.splines",
+      "displayName": "Splines",
+      "resolvedPath": "C:\\Users\\user\\Documents\\GitHub\\LongNight\\Long Night\\Library\\PackageCache\\com.unity.splines@d3e1e500c9a0",
+      "fingerprint": "d3e1e500c9a0fa3a1e812117108982dd612c2e27",
+      "editorCompatibility": "2022.3.0a1",
+      "version": "2.7.2",
+      "source": "registry",
+      "testable": false
+    },
     "com.unity.searcher@4.9.2": {
       "name": "com.unity.searcher",
       "displayName": "Searcher",
@@ -567,6 +587,16 @@
       "fingerprint": "bb1fc9b3d81b3bb452c6708e8c088fe4224a0369",
       "editorCompatibility": "2023.1.0a1",
       "version": "9.0.7",
+      "source": "registry",
+      "testable": false
+    },
+    "com.unity.settings-manager@2.0.1": {
+      "name": "com.unity.settings-manager",
+      "displayName": "Settings Manager",
+      "resolvedPath": "C:\\Users\\user\\Documents\\GitHub\\LongNight\\Long Night\\Library\\PackageCache\\com.unity.settings-manager@56a930affa1e",
+      "fingerprint": "56a930affa1e4462d3595b5c19a1c2a4bf2015d2",
+      "editorCompatibility": "2018.4.0a1",
+      "version": "2.0.1",
       "source": "registry",
       "testable": false
     },
