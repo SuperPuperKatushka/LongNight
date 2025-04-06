@@ -1,25 +1,28 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: C:/Users/user/Documents/GitHub/LongNight/Long Night/Packages/manifest.json
+    m_FilePath: "C:/Users/\u0442\u0438\u043C\u0443\u0440/Documents/GitHub/LongNight/Long
+      Night/Packages/manifest.json"
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638794734211427877
-    m_Hash: 2332349645
+      ticks: 638794765737304410
+    m_Hash: 548909648
   m_LockFileStatus:
-    m_FilePath: C:/Users/user/Documents/GitHub/LongNight/Long Night/Packages/packages-lock.json
+    m_FilePath: "C:/Users/\u0442\u0438\u043C\u0443\u0440/Documents/GitHub/LongNight/Long
+      Night/Packages/packages-lock.json"
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638794734825138530
-    m_Hash: 1689500606
+      ticks: 638794765737314413
+    m_Hash: 3797411086
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
-m_ProjectPath: C:/Users/user/Documents/GitHub/LongNight/Long Night/Packages
+m_ProjectPath: "C:/Users/\u0442\u0438\u043C\u0443\u0440/Documents/GitHub/LongNight/Long
+  Night/Packages"
 m_EditorVersion: 6000.0.45f1 (d91bd3d4e081)
 m_ResolvedPackages:
 - packageId: com.unity.cinemachine@3.1.3
@@ -27,7 +30,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.1.3
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.cinemachine@624f919d8cdd
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.cinemachine@624f919d8cdd"
   assetPath: Packages/com.unity.cinemachine
   name: com.unity.cinemachine
   displayName: Cinemachine
@@ -237,7 +241,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.7.1
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.collab-proxy@50ac96531b63
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.collab-proxy@50ac96531b63"
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Version Control
@@ -420,7 +425,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.1
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.feature.2d@dd1ea8910f12
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.feature.2d@dd1ea8910f12"
   assetPath: Packages/com.unity.feature.2d
   name: com.unity.feature.2d
   displayName: 2D
@@ -554,7 +560,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.0.31
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.ide.rider@7921be93db40
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.ide.rider@7921be93db40"
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -675,7 +682,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.22
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.ide.visualstudio@8140e851d83e
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.ide.visualstudio@8140e851d83e"
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -783,7 +791,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.14.0
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.inputsystem@7fe8299111a7
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.inputsystem@7fe8299111a7"
   assetPath: Packages/com.unity.inputsystem
   name: com.unity.inputsystem
   displayName: Input System
@@ -932,7 +941,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.multiplayer.center@f3fb577b3546
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.multiplayer.center@f3fb577b3546"
   assetPath: Packages/com.unity.multiplayer.center
   name: com.unity.multiplayer.center
   displayName: Multiplayer Center
@@ -1022,7 +1032,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.render-pipelines.universal@9c8ceca205de
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.render-pipelines.universal@9c8ceca205de"
   assetPath: Packages/com.unity.render-pipelines.universal
   name: com.unity.render-pipelines.universal
   displayName: Universal RP
@@ -1184,7 +1195,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.5.1
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.test-framework@388540dd9ce6
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.test-framework@388540dd9ce6"
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -1322,7 +1334,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.8.7
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.timeline@c58b4ee65782
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.timeline@c58b4ee65782"
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1508,7 +1521,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.0
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.ugui@f3fac7af1578
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.ugui@f3fac7af1578"
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1600,7 +1614,8 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.9.6
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.visualscripting@7dcdc439b230
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.visualscripting@7dcdc439b230"
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -4149,7 +4164,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.0.5
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.ext.nunit@031a54704bff
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.ext.nunit@031a54704bff"
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -4228,7 +4244,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.render-pipelines.core@fe255bed7938
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.render-pipelines.core@fe255bed7938"
   assetPath: Packages/com.unity.render-pipelines.core
   name: com.unity.render-pipelines.core
   displayName: Core RP Library
@@ -4442,7 +4459,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.shadergraph@bbf164badec6
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.shadergraph@bbf164badec6"
   assetPath: Packages/com.unity.shadergraph
   name: com.unity.shadergraph
   displayName: Shader Graph
@@ -4645,7 +4663,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.render-pipelines.universal-config@fa63c96d3e1a
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.render-pipelines.universal-config@fa63c96d3e1a"
   assetPath: Packages/com.unity.render-pipelines.universal-config
   name: com.unity.render-pipelines.universal-config
   displayName: Universal RP Config
@@ -4743,7 +4762,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.1.4
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.animation@494a3b4e73a9
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.animation@494a3b4e73a9"
   assetPath: Packages/com.unity.2d.animation
   name: com.unity.2d.animation
   displayName: 2D Animation
@@ -4996,7 +5016,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 5.0.3
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.pixel-perfect@e3ae982b672d
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.pixel-perfect@e3ae982b672d"
   assetPath: Packages/com.unity.2d.pixel-perfect
   name: com.unity.2d.pixel-perfect
   displayName: 2D Pixel Perfect
@@ -5093,7 +5114,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.3
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.psdimporter@676bae148e11
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.psdimporter@676bae148e11"
   assetPath: Packages/com.unity.2d.psdimporter
   name: com.unity.2d.psdimporter
   displayName: 2D PSD Importer
@@ -5271,7 +5293,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.sprite@072d7bd355e5
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.sprite@072d7bd355e5"
   assetPath: Packages/com.unity.2d.sprite
   name: com.unity.2d.sprite
   displayName: 2D Sprite
@@ -5341,7 +5364,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.0.7
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.spriteshape@9e35352ae135
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.spriteshape@9e35352ae135"
   assetPath: Packages/com.unity.2d.spriteshape
   name: com.unity.2d.spriteshape
   displayName: 2D SpriteShape
@@ -5536,7 +5560,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.tilemap@8ef8f443744f
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.tilemap@8ef8f443744f"
   assetPath: Packages/com.unity.2d.tilemap
   name: com.unity.2d.tilemap
   displayName: 2D Tilemap Editor
@@ -5623,7 +5648,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.1.0
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.tilemap.extras@13634da7dbe0
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.tilemap.extras@13634da7dbe0"
   assetPath: Packages/com.unity.2d.tilemap.extras
   name: com.unity.2d.tilemap.extras
   displayName: 2D Tilemap Extras
@@ -5769,7 +5795,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.1.8
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.aseprite@1f731787b516
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.aseprite@1f731787b516"
   assetPath: Packages/com.unity.2d.aseprite
   name: com.unity.2d.aseprite
   displayName: 2D Aseprite Importer
@@ -5890,7 +5917,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.8.0
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.splines@30918147f39c
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.splines@30918147f39c"
   assetPath: Packages/com.unity.splines
   name: com.unity.splines
   displayName: Splines
@@ -6003,7 +6031,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.9.3
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.searcher@1e17ce91558d
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.searcher@1e17ce91558d"
   assetPath: Packages/com.unity.searcher
   name: com.unity.searcher
   displayName: Searcher
@@ -6090,7 +6119,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.8.19
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.burst@7a907cf5a459
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.burst@7a907cf5a459"
   assetPath: Packages/com.unity.burst
   name: com.unity.burst
   displayName: Burst
@@ -6314,7 +6344,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.3.2
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.mathematics@8017b507cc74
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.mathematics@8017b507cc74"
   assetPath: Packages/com.unity.mathematics
   name: com.unity.mathematics
   displayName: Mathematics
@@ -6403,7 +6434,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.5.1
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.collections@56bff8827a7e
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.collections@56bff8827a7e"
   assetPath: Packages/com.unity.collections
   name: com.unity.collections
   displayName: Collections
@@ -6576,7 +6608,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.1
   source: 2
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.rendering.light-transport@307bc27a498f
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.rendering.light-transport@307bc27a498f"
   assetPath: Packages/com.unity.rendering.light-transport
   name: com.unity.rendering.light-transport
   displayName: Unity Light Transport Library
@@ -6672,7 +6705,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.7
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.2d.common@bb1fc9b3d81b
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.2d.common@bb1fc9b3d81b"
   assetPath: Packages/com.unity.2d.common
   name: com.unity.2d.common
   displayName: 2D Common
@@ -6833,7 +6867,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.0.1
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.settings-manager@56a930affa1e
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.settings-manager@56a930affa1e"
   assetPath: Packages/com.unity.settings-manager
   name: com.unity.settings-manager
   displayName: Settings Manager
@@ -6909,7 +6944,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.11.4
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.nuget.mono-cecil@d6f9955a5d5f"
   assetPath: Packages/com.unity.nuget.mono-cecil
   name: com.unity.nuget.mono-cecil
   displayName: Mono Cecil
@@ -6991,7 +7027,8 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 3.0.3
   source: 1
-  resolvedPath: C:\Users\user\Documents\GitHub\LongNight\Long Night\Library\PackageCache\com.unity.test-framework.performance@fb0dc592af8b
+  resolvedPath: "C:\\Users\\\u0442\u0438\u043C\u0443\u0440\\Documents\\GitHub\\LongNight\\Long
+    Night\\Library\\PackageCache\\com.unity.test-framework.performance@fb0dc592af8b"
   assetPath: Packages/com.unity.test-framework.performance
   name: com.unity.test-framework.performance
   displayName: Performance testing API
