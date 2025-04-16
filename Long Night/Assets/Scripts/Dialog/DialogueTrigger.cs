@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine;
+
+using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
-    private bool isPlayerInRange = false;
+    public DialogueData dialogue; // Подключаем ScriptableObject
     private DialogueManager dialogueManager;
+    private bool isPlayerInRange = false;
 
     private void Start()
     {
@@ -20,10 +23,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.Space))
         {
-            if (!dialogueManager.IsDialogueActive()) // Проверяем, идет ли уже диалог
+            if (!dialogueManager.IsDialogueActive())
             {
-                TriggerDialogue();
-             
+                dialogueManager.StartDialogue(dialogue);
             }
         }
     }
@@ -41,14 +43,6 @@ public class DialogueTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-        }
-    }
-
-    public void TriggerDialogue()
-    {
-        if (dialogueManager != null)
-        {
-            dialogueManager.StartDialogue(dialogue);
         }
     }
 }

@@ -1,82 +1,122 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class DialogueManager : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI nameText;
+    [Header("UI Elements")]
     public GameObject dialogObject;
-    
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
+    public Transform choicesContainer;
+    public GameObject choiceButtonPrefab;
 
-    private Queue<string> sentences;
+    private DialogueData currentDialogue;
+    private int currentNodeIndex = 0;
     private bool isDialogueActive = false;
+
+    public bool IsDialogueActive() => isDialogueActive;
+
 
     private void Start()
     {
-        sentences = new Queue<string>();
+        isDialogueActive = false;
         dialogObject.SetActive(false);
-        
-    }
-    private void Update()
-    {
-        if ( Input.GetKeyDown(KeyCode.Space))
-        {
-            DisplayNextSentences();
-        }
+
     }
 
-    public void StartDialogue(Dialogue dialogue)
-    {
-        // Открытие диалога
 
-        dialogObject.SetActive(true);
+    public void StartDialogue(DialogueData dialogue)
+    {
+        currentDialogue = dialogue;
+        currentNodeIndex = 0;
         isDialogueActive = true;
-        nameText.text = dialogue.name;
-        sentences.Clear();
+        dialogObject.SetActive(true);
+        nameText.text = dialogue.npcName;
 
-        foreach (string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
+        ShowCurrentNode();
+    }
 
-    } 
-
-    public void DisplayNextSentences()
+    private void ShowCurrentNode()
     {
-        if (sentences.Count == 0) {
+        ClearChoices();
+
+        if (currentNodeIndex >= currentDialogue.nodes.Length)
+        {
             EndDialogue();
             return;
-         }
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        }
 
+        DialogueNode node = currentDialogue.nodes[currentNodeIndex];
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(node.sentence));
+
+        // Если есть варианты ответа — показать
+        if (node.choices != null && node.choices.Length > 0)
+        {
+            foreach (DialogueChoice choice in node.choices)
+            {
+                GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer);
+                TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+                buttonText.text = choice.choiceText;
+
+                Button button = buttonObj.GetComponent<Button>();
+                int nextIndex = choice.nextNodeIndex;
+                button.onClick.AddListener(() => OnChoiceSelected(nextIndex));
+            }
+        }
+        else
+        {
+            // Если нет выбора — нажми Space для продолжения
+            StartCoroutine(WaitForContinue());
+        }
     }
 
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-        foreach (char letter in sentence.ToCharArray())
+        foreach (char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return null; // можно задержку: yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    IEnumerator WaitForContinue()
+    {
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        currentNodeIndex++;
+        ShowCurrentNode();
+    }
+
+    private void OnChoiceSelected(int nextNode)
+    {
+        if (nextNode < 0 || nextNode >= currentDialogue.nodes.Length)
+        {
+            EndDialogue();
+        }
+        else
+        {
+            currentNodeIndex = nextNode;
+            ShowCurrentNode();
+        }
+    }
+
+
+    private void ClearChoices()
+    {
+        foreach (Transform child in choicesContainer)
+        {
+            Destroy(child.gameObject);
         }
     }
 
     public void EndDialogue()
     {
-        // Логика заверщения диалога
         isDialogueActive = false;
         dialogObject.SetActive(false);
-
-
+        ClearChoices();
     }
-
-    public bool IsDialogueActive()
-    {
-        return isDialogueActive;
-    }
-
 }
