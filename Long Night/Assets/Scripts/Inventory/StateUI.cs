@@ -25,9 +25,7 @@ public class PlayerUI : MonoBehaviour
 
     void UpdateUI()
     {
-        Debug.Log(PlayerStats.Instance);
         if (PlayerStats.Instance == null) return;
-        Debug.Log("”какались");
         levelText.text = $"LV : {PlayerStats.Instance.level}";
         hpText.text = $"HP: {PlayerStats.Instance.currentHP} / {PlayerStats.Instance.maxHP}";
         manaText.text = $"MP: {PlayerStats.Instance.currentMana} / {PlayerStats.Instance.maxMana}";

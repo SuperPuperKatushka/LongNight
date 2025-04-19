@@ -59,9 +59,7 @@ public class PlayerStats : MonoBehaviour
         maxHP = 200 + (level - 1) * 50;
         attackPower = 10 + (level - 1) * 5;
         maxMana = 5 + (level - 1) * 5;
-
-        currentHP = maxHP;
-        currentMana = maxMana;
+        
     }
 }
 
