@@ -16,6 +16,14 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        if (PlayerPositionData.Instance != null)
+        {
+            transform.position = PlayerPositionData.Instance.GetSavedPosition();
+        }
+    }
+
     private void FixedUpdate()
     {
         HandleMovement();

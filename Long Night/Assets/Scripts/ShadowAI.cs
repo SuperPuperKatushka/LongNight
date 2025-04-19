@@ -4,6 +4,9 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
+    public EnemyTemplate enemyTemplate;
+    public EnemyOnMap enemy;
+
     private bool isVisible = false;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -17,11 +20,16 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator AppearAndStartBattle()
     {
-        // Делаем объект видимым только в нужный момент
-        Debug.Log("Игрок вошел в область, начинается бой...");
-        // Можно воспроизвести анимацию появления или что-то другое
         yield return new WaitForSeconds(1f);
         // Загружаем сцену битвы
-        SceneManager.LoadScene("BattleScene"); 
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            PlayerPositionData.Instance.SavePosition(player.transform.position);
+            EnemyDataTransfer.Instance.SetEnemyTemplate(enemyTemplate);
+            EnemyDataTransfer.Instance.SetEnemyId(enemy.enemyID);
+            Debug.Log("SavedPosition" + PlayerPositionData.Instance.GetSavedPosition());
+        }
+        SceneManager.LoadScene("BattleScene");
     }
 }
