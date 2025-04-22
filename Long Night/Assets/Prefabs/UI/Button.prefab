@@ -67,15 +67,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Answer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a47eaff7097c86346a37c29e694804f0, type: 2}
-  m_sharedMaterial: {fileID: -5402383662310481061, guid: a47eaff7097c86346a37c29e694804f0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 025b1f31a674519459ba5d00072e85e4, type: 2}
+  m_sharedMaterial: {fileID: 903820597877999409, guid: 025b1f31a674519459ba5d00072e85e4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278204260
-  m_fontColor: {r: 0.3921569, g: 0.21568629, b: 0, a: 1}
+    rgba: 4291285719
+  m_fontColor: {r: 0.84313726, g: 0.8235294, b: 0.78039217, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -172,8 +172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 38.5273, y: 0}
+  m_SizeDelta: {x: 82.9453, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8489391905102938913
 CanvasRenderer:
