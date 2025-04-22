@@ -9,4 +9,12 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void QuitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Остановка Play Mode в редакторе
+    #else
+            Application.Quit(); // Выход из собранной версии игры
+    #endif
+    }
 }
