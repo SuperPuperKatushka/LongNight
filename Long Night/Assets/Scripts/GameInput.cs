@@ -11,6 +11,7 @@ public class GameInput : MonoBehaviour
         Instance = this;
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
+        DontDestroyOnLoad(gameObject);
     }
 
     public Vector2 GetMovementVector()
