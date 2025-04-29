@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Transform choicesContainer;
     public GameObject choiceButtonPrefab;
+    private GameObject currentAvatarInstance;
+    public Transform avatarContainer;
 
     private DialogueData currentDialogue;
     private int currentNodeIndex = 0;
@@ -34,7 +36,6 @@ public class DialogueManager : MonoBehaviour
         currentNodeIndex = 0;
         isDialogueActive = true;
         dialogObject.SetActive(true);
-        nameText.text = dialogue.npcName;
 
         ShowCurrentNode();
     }
@@ -50,6 +51,25 @@ public class DialogueManager : MonoBehaviour
         }
 
         DialogueNode node = currentDialogue.nodes[currentNodeIndex];
+
+        nameText.text = node.speaker.speakerName;
+
+        if (currentAvatarInstance != null)
+        {
+            Destroy(currentAvatarInstance);
+        }
+
+        // Спавним новый аватар
+        if (node.speaker.avatar != null)
+        {
+            avatarContainer.gameObject.SetActive(true);
+            currentAvatarInstance = Instantiate(node.speaker.avatar, avatarContainer);
+            currentAvatarInstance.transform.localPosition = Vector3.zero;
+        } else
+        {
+            avatarContainer.gameObject.SetActive(false);
+        }
+
         StopAllCoroutines();
         StartCoroutine(TypeSentence(node.sentence));
 
@@ -86,7 +106,12 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator WaitForContinue()
     {
+        // Подождать пока Space отпущен (если вдруг был зажат)
+        yield return new WaitUntil(() => !Input.GetKey(KeyCode.Space));
+
+        // Теперь ждать новое нажатие
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
         currentNodeIndex++;
         ShowCurrentNode();
     }
@@ -115,6 +140,11 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+
+        if (currentDialogue != null)
+        {
+            currentDialogue.onDialogueEnd?.Invoke();
+        }
         isDialogueActive = false;
         dialogObject.SetActive(false);
         ClearChoices();

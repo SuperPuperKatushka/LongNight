@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3de5095ae94b1374d83c245953d2e92d
+guid: 0b2187f0c311e0545a38aa25bba26b62
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: deafult-battle-export_0
+      name: test-redbackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 809ec31115924514f9d7f9b124ca54da
-      internalID: 1150873840
+      spriteID: cb1e1a7921cc8b04288b1bec4f3af71c
+      internalID: 1357230656
       vertices: []
       indices: 
       edges: []
@@ -158,7 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      deafult-battle-export_0: 1150873840
+      test-redbackground_0: 1357230656
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
