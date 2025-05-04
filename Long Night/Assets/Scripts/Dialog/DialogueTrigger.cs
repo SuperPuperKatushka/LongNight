@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using UnityEngine;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public DialogueData dialogue; // Подключаем ScriptableObject
+    public DialogueData dialogue; // РџРѕРґРєР»СЋС‡Р°РµРј ScriptableObject
     private DialogueManager dialogueManager;
     private bool isPlayerInRange = false;
 
@@ -15,7 +15,7 @@ public class DialogueTrigger : MonoBehaviour
         dialogueManager = FindFirstObjectByType<DialogueManager>();
         if (dialogueManager == null)
         {
-            Debug.LogError("DialogueManager не найден на сцене!");
+            Debug.LogError("DialogueManager РЅРµ РЅР°Р№РґРµРЅ РЅР° СЃС†РµРЅРµ!");
         }
     }
 

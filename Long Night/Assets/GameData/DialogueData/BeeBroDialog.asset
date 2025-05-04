@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0967a890bde0e4b8cc256a118b7e83, type: 3}
+  m_Name: BeeBroDialog
+  m_EditorClassIdentifier: 
+  nodes:
+  - speaker: {fileID: 11400000, guid: 9779b053b0799e1408f19870a81b18ca, type: 2}
+    sentence: "\u041A\u0442\u043E \u0442\u044B?"
+    choices: []
+  - speaker: {fileID: 11400000, guid: a91bacd68ae9a2e49b60db4d97de2155, type: 2}
+    sentence: "\u042F \u043F\u0447\u043B\u0438\u043A \u043A\u043E\u0442\u043E\u0440\u044B\u0439
+      \u043D\u0443\u0436\u0435\u043D \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F
+      \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431\u044B \u043F\u0440\u043E\u0442\u0435\u0441\u0442\u0438\u0442\u044C
+      \u043A\u0432\u0435\u0441\u0442\u044B(\n\u041D\u043E \u0437\u043D\u0430\u0435\u0448\u044C
+      \u043F\u043E\u0441\u043B\u0435 \u0442\u043E\u0433\u043E \u043A\u0430\u043A
+      \u0442\u044B \u0441\u043E \u043C\u043D\u043E\u0439 \u043F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0448\u044C
+      \u0443 \u0442\u0435\u0431\u044F \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F
+      \u043A\u0432\u0435\u0441\u0442."
+    choices:
+    - choiceText: "\u0412\u0430\u0443!"
+      nextNodeIndex: -1
+    - choiceText: ...
+      nextNodeIndex: -1
+  onDialogueEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
