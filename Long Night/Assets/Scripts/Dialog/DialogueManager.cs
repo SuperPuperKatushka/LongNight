@@ -15,6 +15,8 @@ public class DialogueManager : MonoBehaviour
     private GameObject currentAvatarInstance;
     public Transform avatarContainer;
 
+    public QuestData questToStart;
+
     private DialogueData currentDialogue;
     private int currentNodeIndex = 0;
     private bool isDialogueActive = false;
@@ -148,5 +150,6 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = false;
         dialogObject.SetActive(false);
         ClearChoices();
+        GameStateManager.Instance.AddQuest(questToStart);
     }
 }
