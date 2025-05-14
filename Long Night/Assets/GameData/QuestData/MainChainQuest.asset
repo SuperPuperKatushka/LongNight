@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78347301fce013b4fb25188ac9e11c17, type: 3}
+  m_Name: MainChainQuest
+  m_EditorClassIdentifier: 
+  chainID: main_quest
+  questsInChain:
+  - {fileID: 11400000, guid: 5b2a75f20a56b8b4c9b50a7359d42126, type: 2}
+  - {fileID: 11400000, guid: d4779c383dd8aa043af13a932948edd8, type: 2}
+  - {fileID: 11400000, guid: 2ce9d0dd45d7d1140aa3e2e2f325d856, type: 2}
+  - {fileID: 11400000, guid: 335e9291c9de8d648bc3e424720d9c13, type: 2}
+  - {fileID: 11400000, guid: 0d7bf6b11cb268641a1aee4506f992a0, type: 2}
+  restartFromBeginning: 0
+  currentQuestIndex: 0

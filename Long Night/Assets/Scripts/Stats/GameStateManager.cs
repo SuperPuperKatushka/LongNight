@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
-public class GameStateManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static GameStateManager Instance;
+    public static GameManager Instance { get; private set; }
 
-    public List<QuestStateMachine> activeQuests = new();
+    // Все данные игры, которые нужно сохранять
+    [System.Serializable]
+    public class GameData
+    {
+        //public QuestSystem.QuestSaveData questData;
+        // Другие данные (инвентарь, статистика игрока и т.д.)
+    }
 
-    public event Action OnQuestUpdated; // 👈 событие
+    private GameData _currentGameData;
+
+    void Update()
+    {
+        QuestSystem.Instance.UpdateQuests(); // Запускает всю цепочку проверок
+    }
 
     private void Awake()
     {
@@ -17,31 +28,64 @@ public class GameStateManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
-    }
-
-    public void AddQuest(QuestData data)
-    {
-        if (activeQuests.Exists(q => q.QuestId == data.questId))
+        else
         {
-            Debug.LogWarning($"[GameState] Quest already active: {data.questName}");
-            return;
+            Destroy(gameObject);
         }
-
-        var quest = new QuestStateMachine(data);
-        activeQuests.Add(quest);
-        quest.StartQuest();
-
-        NotifyQuestUpdated(); // 👈 обновляем UI при добавлении квеста
     }
 
-    public QuestStateMachine GetQuest(string questId)
+    // Загрузка при старте
+    private void Start()
     {
-        return activeQuests.Find(q => q.QuestId == questId);
+        LoadGame();
     }
 
-    public void NotifyQuestUpdated() // 👈 вызывается при изменении квеста
+    // Сохранение игры
+    public void SaveGame()
     {
-        OnQuestUpdated?.Invoke();
+        _currentGameData = new GameData
+        {
+            //questData = QuestSystem.Instance.GetSaveData(),
+            // Сохраняем другие системы...
+        };
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/save.dat";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, _currentGameData);
+        stream.Close();
+
+        Debug.Log("Игра сохранена в " + path);
+    }
+
+    // Загрузка игры
+    public void LoadGame()
+    {
+        string path = Application.persistentDataPath + "/save.dat";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            _currentGameData = formatter.Deserialize(stream) as GameData;
+            stream.Close();
+
+            // Восстанавливаем данные квестов
+            //QuestSystem.Instance.LoadSaveData(_currentGameData.questData);
+
+            Debug.Log("Игра загружена из " + path);
+        }
+        else
+        {
+            Debug.Log("Файл сохранения не найден. Создаём новую игру.");
+            _currentGameData = new GameData();
+        }
+    }
+
+    // Для автосохранения при выходе
+    private void OnApplicationQuit()
+    {
+        SaveGame();
     }
 }

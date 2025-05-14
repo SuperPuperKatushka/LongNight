@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine;
 
@@ -6,8 +7,10 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+
     public DialogueData dialogue; // Подключаем ScriptableObject
     private DialogueManager dialogueManager;
+    public string npcId;
     private bool isPlayerInRange = false;
 
     private void Start()
@@ -25,9 +28,9 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (!dialogueManager.IsDialogueActive())
             {
-                dialogueManager.StartDialogue(dialogue);
-            }
+                dialogueManager.StartDialogue(dialogue, npcId);
         }
+    }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

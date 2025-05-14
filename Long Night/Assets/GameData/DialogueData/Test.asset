@@ -12,16 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0967a890bde0e4b8cc256a118b7e83, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  nodes:
-  - speaker: {fileID: 11400000, guid: 9779b053b0799e1408f19870a81b18ca, type: 2}
-    sentence: "\u0411\u043B\u0430 \u0431\u043B\u0430 \u0431\u043B\u0430"
+  defaultNodes:
+  - speaker: {fileID: 11400000, guid: 94112c3d0b818b74a9b3f88de5bf4158, type: 2}
+    sentence: "\u0418\u0434\u0438 \u0432\u043E\u043D \u0442\u0430\u043C... \u043A\u0430\u043C\u0435\u043D\u044C
+      \u0441\u043C\u043E\u0442\u0440\u0438"
     choices: []
-  - speaker: {fileID: 11400000, guid: 0c19365a36e8a99458967726e0e39223, type: 2}
-    sentence: "\u0411\u043B\u0435 \u0431\u043B\u0435 \u0431\u043B\u0435"
-    choices: []
-  - speaker: {fileID: 11400000, guid: 9779b053b0799e1408f19870a81b18ca, type: 2}
-    sentence: "\u0423\u0411\u041B\u042E\u041E\u041B\u042E\u041B\u042E\u041B\u042E\n"
-    choices: []
+    onNodeEnter:
+      m_PersistentCalls:
+        m_Calls: []
+  overrides:
+  - nodes:
+    - speaker: {fileID: 11400000, guid: 94112c3d0b818b74a9b3f88de5bf4158, type: 2}
+      sentence: "\u041C\u043E\u043B\u043E\u0434\u0435\u0446 \u0442\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u043B
+        \u043A\u0430\u043C\u0435\u043D\u044C! "
+      choices: []
+      onNodeEnter:
+        m_PersistentCalls:
+          m_Calls: []
+    conditions:
+    - questId: stone_quest_1
+      requiredState: 4
+    priority: 0
+  - nodes:
+    - speaker: {fileID: 11400000, guid: 94112c3d0b818b74a9b3f88de5bf4158, type: 2}
+      sentence: "\u0410 \u0442\u0435\u043F\u0435\u0440\u044C \u0442\u044B \u043F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u043B
+        \u0441\u043E \u043C\u043D\u043E\u0439. \u041A\u0443\u043B."
+      choices: []
+      onNodeEnter:
+        m_PersistentCalls:
+          m_Calls: []
+    conditions:
+    - questId: airia_talk_1
+      requiredState: 4
+    priority: 1
   onDialogueEnd:
     m_PersistentCalls:
       m_Calls:

@@ -3,15 +3,22 @@ using UnityEngine.Events;
 
 public class InteractableObject : MonoBehaviour
 {
+    public static event System.Action<string> OnInteracted;
+
     [Header("Настройки объекта")]
     public string interactableId;
     public bool isCollectible = true;
     public GameObject promptUI;
 
+    [Header("Параметры взаимодействия")]
+    [Tooltip("Количество возможных взаимодействий. 0 или меньше — бесконечно.")]
+    public int interactionLimit = 1;
+
     [Header("Событие при взаимодействии")]
     public UnityEvent onInteract;
 
     private bool playerInRange;
+    private int interactionCount = 0;
 
     private void Start()
     {
@@ -23,20 +30,28 @@ public class InteractableObject : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Q))
         {
+            TryInteract();
+        }
+    }
+
+    private void TryInteract()
+    {
+        if (interactionLimit <= 0 || interactionCount < interactionLimit)
+        {
             Interact();
+            interactionCount++;
         }
     }
 
     private void Interact()
     {
-        // Вызываем событие
         onInteract?.Invoke();
+        OnInteracted?.Invoke(interactableId);
 
-        // Можно снова включить это, если используешь систему квестов
-         QuestEvents.Instance.ItemCollected(interactableId);
-
-        if (isCollectible)
+        if (isCollectible && (interactionLimit <= 0 || interactionCount >= interactionLimit))
+        {
             Destroy(gameObject);
+        }
 
         if (promptUI != null)
             promptUI.SetActive(false);

@@ -2,38 +2,19 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-	[SerializeField] private Inventory inventory;
-	public GameObject slotButton;
 
-	private void Start()
-	{
-		if (inventory == null)
-		{
-			inventory = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Inventory>();
-		}
-	}
+    public GameObject itemPrefab; // Теперь присваиваем префаб напрямую
 
-	public bool TryPickup()
-	{
-		for (int i = 0; i < inventory.slots.Length; i++)
-		{
-			if (!inventory.isFull[i])
-			{
-				inventory.isFull[i] = true;
-				Instantiate(slotButton, inventory.slots[i].transform);
-				Destroy(gameObject);
-				PlayerStats.Instance.GainEXP(10);
-				return true;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Inventory inventory = other.GetComponent<Inventory>();
+            if (inventory != null && inventory.AddItem(itemPrefab))
+            {
+                Destroy(gameObject);
+
             }
-		}
-		return false;
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			TryPickup();
-		}
-	}
+        }
+    }
 }
