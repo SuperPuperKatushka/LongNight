@@ -39,6 +39,7 @@ public class SlotItem
 public class InventoryData
 {
     public List<SlotItemData> slotItems = new List<SlotItemData>();
+    public Dictionary<int, string> equippedItems = new Dictionary<int, string>(); // <slotIndex, itemID>
 }
 
 [System.Serializable]

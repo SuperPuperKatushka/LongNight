@@ -5,14 +5,15 @@ using UnityEngine.EventSystems;
 public class Inventory : MonoBehaviour
 {
     public static event System.Action<string> OnItemPickUp;
+
     [Header("Slots")]
     public bool[] isFull;
     public GameObject[] slots;
     public GameObject[] equipmentSlots;
     public GameObject inventoryUI;
-    private bool inventoryOpen;
     private static Inventory instance;
 
+    private bool inventoryOpen;
     private Dictionary<int, ItemData> equippedItems = new Dictionary<int, ItemData>();
 
     private void Awake()
@@ -26,6 +27,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+       
         inventoryOpen = false;
         inventoryUI.SetActive(false);
         LoadInventory();
@@ -35,6 +37,8 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            foreach (var slotItem in PlayerStats.Instance.GetInventoryState())
+                Debug.Log("ААААААА " + slotItem);
             ToggleInventory();
         }
     }
@@ -44,17 +48,16 @@ public class Inventory : MonoBehaviour
         inventoryOpen = !inventoryOpen;
         inventoryUI.SetActive(inventoryOpen);
 
-        // Обновляем статус слотов при закрытии
         if (!inventoryOpen)
         {
             UpdateSlotStatus();
+            SaveInventory();
         }
     }
 
     public bool AddItem(GameObject itemPrefab)
     {
-
-        UpdateSlotStatus(); // Обязательно обновляем перед добавлением
+        UpdateSlotStatus();
         ItemData itemData = itemPrefab.GetComponent<ItemData>();
 
         for (int i = 0; i < slots.Length; i++)
@@ -64,8 +67,6 @@ public class Inventory : MonoBehaviour
                 GameObject newItem = Instantiate(itemPrefab, slots[i].transform);
                 isFull[i] = true;
                 SaveInventory();
-
-                // Вызываем событие после успешного добавления
                 OnItemPickUp?.Invoke(itemData.itemID.ToString());
                 return true;
             }
@@ -84,7 +85,6 @@ public class Inventory : MonoBehaviour
             {
                 itemData.transform.SetParent(equipmentSlots[i].transform);
                 itemData.transform.localPosition = Vector3.zero;
-
                 equippedItems[i] = itemData;
 
                 int slotIndex = System.Array.IndexOf(slots, fromSlot);
@@ -111,7 +111,6 @@ public class Inventory : MonoBehaviour
                 if (slotIndex >= 0) equippedItems.Remove(slotIndex);
 
                 isFull[i] = true;
-
                 ApplyItemEffects(itemData, false);
                 SaveInventory();
                 return true;
@@ -123,27 +122,12 @@ public class Inventory : MonoBehaviour
     private void ApplyItemEffects(ItemData itemData, bool apply)
     {
         int modifier = apply ? 1 : -1;
-
-        //switch (itemData.itemID)
-        //{
-        //    case ItemID.FireballSkill:
-        //        PlayerStats.Instance.AddDamageBonus(10 * modifier);
-        //        break;
-        //    case ItemID.HealSkill:
-        //        PlayerStats.Instance.AddHealthRegen(2 * modifier);
-        //        break;
-        //    case ItemID.Sword:
-        //        PlayerStats.Instance.AddAttackPower(15 * modifier);
-        //        break;
-        //    case ItemID.Shield:
-        //        PlayerStats.Instance.AddDefense(10 * modifier);
-        //        break;
-        //}
+        // Реализуйте эффекты предметов здесь
     }
 
     public void SaveInventory()
     {
-        InventoryData data = new InventoryData();
+        List<SlotItemData> slotItems = new List<SlotItemData>();
 
         // Сохраняем обычные слоты
         for (int i = 0; i < slots.Length; i++)
@@ -153,12 +137,12 @@ public class Inventory : MonoBehaviour
                 var item = slots[i].transform.GetChild(0).GetComponent<ItemData>();
                 if (item != null)
                 {
-                    data.slotItems.Add(new SlotItemData
+                    slotItems.Add(new SlotItemData
                     {
                         slotIndex = i,
                         itemID = item.itemID,
                         isEquipped = false,
-                        prefabName = item.gameObject.name.Replace("(Clone)", "") // Сохраняем имя префаба
+                        prefabName = item.gameObject.name.Replace("(Clone)", "")
                     });
                 }
             }
@@ -172,7 +156,7 @@ public class Inventory : MonoBehaviour
                 var item = equipmentSlots[i].transform.GetChild(0).GetComponent<ItemData>();
                 if (item != null)
                 {
-                    data.slotItems.Add(new SlotItemData
+                    slotItems.Add(new SlotItemData
                     {
                         slotIndex = i,
                         itemID = item.itemID,
@@ -183,10 +167,9 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString("InventoryData", json);
-        PlayerPrefs.Save();
+        PlayerStats.Instance.SaveInventoryState(slotItems);
     }
+
     private void UpdateSlotStatus()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -194,44 +177,85 @@ public class Inventory : MonoBehaviour
             isFull[i] = slots[i].transform.childCount > 0;
         }
     }
+
     public void LoadInventory()
     {
-        //if (PlayerPrefs.HasKey("InventoryData"))
-        //{
-        //    string json = PlayerPrefs.GetString("InventoryData");
-        //    InventoryData data = JsonUtility.FromJson<InventoryData>(json);
+        ClearAllSlots();
+        var slotItems = PlayerStats.Instance.GetInventoryState();
+        Debug.Log($"Загружаем инвентарь, найдено {slotItems.Count} предметов");
 
-        //    foreach (var slotItem in data.slotItems)
-        //    {
-        //        // Загружаем префаб по имени
-        //        GameObject itemPrefab = Resources.Load<GameObject>("Items/" + slotItem.prefabName);
-        //        if (itemPrefab != null)
-        //        {
-        //            GameObject itemObj = Instantiate(itemPrefab);
-        //            ItemData itemData = itemObj.GetComponent<ItemData>();
+        foreach (var slotItem in slotItems)
+        {
+            // Проверка корректности данных
+            if (string.IsNullOrEmpty(slotItem.prefabName))
+            {
+                Debug.LogWarning("Обнаружен предмет с пустым именем префаба");
+                continue;
+            }
 
-        //            if (slotItem.isEquipped)
-        //            {
-        //                if (slotItem.slotIndex < equipmentSlots.Length)
-        //                {
-        //                    itemObj.transform.SetParent(equipmentSlots[slotItem.slotIndex].transform);
-        //                    itemObj.transform.localPosition = Vector3.zero;
-        //                    equippedItems[slotItem.slotIndex] = itemData;
-        //                    ApplyItemEffects(itemData, true);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (slotItem.slotIndex < slots.Length)
-        //                {
-        //                    itemObj.transform.SetParent(slots[slotItem.slotIndex].transform);
-        //                    itemObj.transform.localPosition = Vector3.zero;
-        //                    isFull[slotItem.slotIndex] = true;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+            // Загрузка префаба с учетом возможных вариантов именования
+            GameObject itemPrefab = Resources.Load<GameObject>($"Items/{slotItem.prefabName}") ??
+                                  Resources.Load<GameObject>($"Items/{slotItem.prefabName.Replace("(Clone)", "")}");
+
+            if (itemPrefab == null)
+            {
+                Debug.LogError($"Не удалось загрузить префаб: Items/{slotItem.prefabName}");
+                continue;
+            }
+
+            // Создание экземпляра предмета
+            GameObject itemObj = Instantiate(itemPrefab);
+            ItemData itemData = itemObj.GetComponent<ItemData>();
+
+            if (itemData == null)
+            {
+                Debug.LogError($"У префаба {slotItem.prefabName} отсутствует компонент ItemData");
+                Destroy(itemObj);
+                continue;
+            }
+
+            // Размещение в соответствующем слоте
+            if (slotItem.isEquipped)
+            {
+                if (slotItem.slotIndex < equipmentSlots.Length)
+                {
+                    itemObj.transform.SetParent(equipmentSlots[slotItem.slotIndex].transform);
+                    itemObj.transform.localPosition = Vector3.zero;
+                    itemObj.transform.localScale = Vector3.one; // Важно!
+                    equippedItems[slotItem.slotIndex] = itemData;
+                    Debug.Log($"Экипирован предмет {slotItem.prefabName} в слот {slotItem.slotIndex}");
+                }
+            }
+            else
+            {
+                if (slotItem.slotIndex < slots.Length)
+                {
+                    itemObj.transform.SetParent(slots[slotItem.slotIndex].transform);
+                    itemObj.transform.localPosition = Vector3.zero;
+                    itemObj.transform.localScale = Vector3.one; // Важно!
+                    isFull[slotItem.slotIndex] = true;
+                    Debug.Log($"Добавлен предмет {slotItem.prefabName} в слот {slotItem.slotIndex}");
+                }
+            }
+        }
+    }
+
+    private void ClearAllSlots()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                Destroy(slot.transform.GetChild(0).gameObject);
+            }
+        }
+        foreach (var eqSlot in equipmentSlots)
+        {
+            if (eqSlot.transform.childCount > 0)
+            {
+                Destroy(eqSlot.transform.GetChild(0).gameObject);
+            }
+        }
+        equippedItems.Clear();
     }
 }
-

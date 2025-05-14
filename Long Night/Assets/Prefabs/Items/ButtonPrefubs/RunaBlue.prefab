@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -767333721885969993}
   - component: {fileID: 6797758653344467146}
   m_Layer: 5
-  m_Name: RunaButton
+  m_Name: RunaBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
