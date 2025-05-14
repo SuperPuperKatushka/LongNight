@@ -4,5 +4,6 @@ using UnityEngine;
 public class SpeakerData : ScriptableObject
 {
     public string speakerName;
+    public string speakerID;
     public GameObject avatar;
 }

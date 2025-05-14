@@ -1,11 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static event System.Action<string> OnTalkEnd;
+
     [Header("UI Elements")]
     public GameObject dialogObject;
     public TextMeshProUGUI nameText;
@@ -13,27 +16,28 @@ public class DialogueManager : MonoBehaviour
     public Transform choicesContainer;
     public GameObject choiceButtonPrefab;
     private GameObject currentAvatarInstance;
+    private string dialogueNpcId;
+
     public Transform avatarContainer;
 
-    public QuestData questToStart;
+    [Header("Events")]
+    public UnityEvent onDialogueEnd;
 
     private DialogueData currentDialogue;
     private int currentNodeIndex = 0;
     private bool isDialogueActive = false;
+    private Coroutine typingCoroutine;
 
     public bool IsDialogueActive() => isDialogueActive;
 
-
-    private void Start()
+    public void StartDialogue(DialogueData dialogue, string npcId)
     {
-        isDialogueActive = false;
-        dialogObject.SetActive(false);
-
-    }
-
-
-    public void StartDialogue(DialogueData dialogue)
-    {
+        // Если уже есть активный диалог - прерываем его
+        if (isDialogueActive)
+        {
+            ForceEndDialogue();
+        }
+        dialogueNpcId = npcId;
         currentDialogue = dialogue;
         currentNodeIndex = 0;
         isDialogueActive = true;
@@ -46,54 +50,107 @@ public class DialogueManager : MonoBehaviour
     {
         ClearChoices();
 
-        if (currentNodeIndex >= currentDialogue.nodes.Length)
+        // Получаем актуальные узлы диалога с учетом квестов
+        DialogueNode[] nodesToUse = GetCurrentNodes();
+
+        if (currentNodeIndex >= nodesToUse.Length)
         {
             EndDialogue();
             return;
         }
 
-        DialogueNode node = currentDialogue.nodes[currentNodeIndex];
-
+        DialogueNode node = nodesToUse[currentNodeIndex];
         nameText.text = node.speaker.speakerName;
 
+        // Обновляем аватар
         if (currentAvatarInstance != null)
         {
             Destroy(currentAvatarInstance);
         }
 
-        // Спавним новый аватар
         if (node.speaker.avatar != null)
         {
             avatarContainer.gameObject.SetActive(true);
             currentAvatarInstance = Instantiate(node.speaker.avatar, avatarContainer);
             currentAvatarInstance.transform.localPosition = Vector3.zero;
-        } else
+        }
+        else
         {
             avatarContainer.gameObject.SetActive(false);
         }
 
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(node.sentence));
+        // Печатаем текст
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        typingCoroutine = StartCoroutine(TypeSentence(node.sentence));
 
-        // Если есть варианты ответа — показать
+        // Обрабатываем выборы
         if (node.choices != null && node.choices.Length > 0)
         {
             foreach (DialogueChoice choice in node.choices)
             {
-                GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer);
-                TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-                buttonText.text = choice.choiceText;
-
-                Button button = buttonObj.GetComponent<Button>();
-                int nextIndex = choice.nextNodeIndex;
-                button.onClick.AddListener(() => OnChoiceSelected(nextIndex));
+                CreateChoiceButton(choice);
             }
         }
         else
         {
-            // Если нет выбора — нажми Space для продолжения
             StartCoroutine(WaitForContinue());
         }
+    }
+
+    private DialogueNode[] GetCurrentNodes()
+    {
+        List<DialogueOverride> validOverrides = new List<DialogueOverride>();
+
+        // Собираем все подходящие варианты
+        foreach (var overrideData in currentDialogue.overrides)
+        {
+            if (CheckConditions(overrideData.conditions))
+            {
+                validOverrides.Add(overrideData);
+            }
+        }
+
+        // Если есть подходящие варианты - выбираем с максимальным приоритетом
+        if (validOverrides.Count > 0)
+        {
+            DialogueOverride bestOverride = validOverrides[0];
+            foreach (var overrideData in validOverrides)
+            {
+                if (overrideData.priority > bestOverride.priority)
+                {
+                    bestOverride = overrideData;
+                }
+            }
+            return bestOverride.nodes;
+        }
+
+        // Возвращаем диалог по умолчанию
+        return currentDialogue.defaultNodes;
+    }
+
+    private bool CheckConditions(DialogueCondition[] conditions)
+    {
+        if (QuestSystem.Instance == null) return false;
+
+        foreach (var condition in conditions)
+        {
+            Quest quest = QuestSystem.GetQuest(condition.questId);
+            if (quest == null || quest.state != condition.requiredState)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void CreateChoiceButton(DialogueChoice choice)
+    {
+        GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer);
+        buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = choice.choiceText;
+        buttonObj.GetComponent<Button>().onClick.AddListener(() => OnChoiceSelected(choice.nextNodeIndex));
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -102,16 +159,14 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return null; // можно задержку: yield return new WaitForSeconds(0.02f);
+            yield return null;
         }
+        typingCoroutine = null;
     }
 
     IEnumerator WaitForContinue()
     {
-        // Подождать пока Space отпущен (если вдруг был зажат)
         yield return new WaitUntil(() => !Input.GetKey(KeyCode.Space));
-
-        // Теперь ждать новое нажатие
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
         currentNodeIndex++;
@@ -120,7 +175,9 @@ public class DialogueManager : MonoBehaviour
 
     private void OnChoiceSelected(int nextNode)
     {
-        if (nextNode < 0 || nextNode >= currentDialogue.nodes.Length)
+        DialogueNode[] nodesToUse = GetCurrentNodes();
+
+        if (nextNode < 0 || nextNode >= nodesToUse.Length)
         {
             EndDialogue();
         }
@@ -131,7 +188,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
     private void ClearChoices()
     {
         foreach (Transform child in choicesContainer)
@@ -140,16 +196,33 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void ForceEndDialogue()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        EndDialogue();
+
+    }
+
     public void EndDialogue()
     {
-
         if (currentDialogue != null)
         {
             currentDialogue.onDialogueEnd?.Invoke();
+            OnTalkEnd?.Invoke(currentDialogue.name);
         }
+
+        if (currentAvatarInstance != null)
+        {
+            Destroy(currentAvatarInstance);
+        }
+
         isDialogueActive = false;
         dialogObject.SetActive(false);
         ClearChoices();
-        GameStateManager.Instance.AddQuest(questToStart);
+        onDialogueEnd.Invoke();
+        OnTalkEnd?.Invoke(dialogueNpcId);
     }
 }
