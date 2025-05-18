@@ -15,7 +15,7 @@ public class InteractableObject : MonoBehaviour
     public int interactionLimit = 1;
 
     [Header("Событие при взаимодействии")]
-    public UnityEvent onInteract;
+    public UnityEvent onInteractEvent;
 
     private bool playerInRange;
     private int interactionCount = 0;
@@ -42,10 +42,10 @@ public class InteractableObject : MonoBehaviour
             interactionCount++;
         }
     }
-
+    //Метод взаимодействия с предметом
     private void Interact()
     {
-        onInteract?.Invoke();
+        onInteractEvent?.Invoke();
         OnInteracted?.Invoke(interactableId);
 
         if (isCollectible && (interactionLimit <= 0 || interactionCount >= interactionLimit))

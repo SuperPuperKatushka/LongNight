@@ -1859,11 +1859,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 442508779099445661, guid: c8acc3df834295647ab3336326447e64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9868021
+      value: -18.48
       objectReference: {fileID: 0}
     - target: {fileID: 442508779099445661, guid: c8acc3df834295647ab3336326447e64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8314533
+      value: -27.64
       objectReference: {fileID: 0}
     - target: {fileID: 442508779099445661, guid: c8acc3df834295647ab3336326447e64, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1924,7 +1924,7 @@ PrefabInstance:
     - target: {fileID: 7683480055913080643, guid: c8acc3df834295647ab3336326447e64, type: 3}
       propertyPath: enemyTemplate
       value: 
-      objectReference: {fileID: 11400000, guid: eb357d7f9ff88de47ada458f26cc48f3, type: 2}
+      objectReference: {fileID: 11400000, guid: 17f87db102a154146b75708014a8da2a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -58628,7 +58628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2011210267
 Transform:
   m_ObjectHideFlags: 0
@@ -60106,7 +60106,7 @@ MonoBehaviour:
   isCollectible: 0
   promptUI: {fileID: 1062762516}
   interactionLimit: 1
-  onInteract:
+  onInteractEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 204219908}
@@ -60580,7 +60580,7 @@ MonoBehaviour:
   isCollectible: 0
   promptUI: {fileID: 862090096}
   interactionLimit: 1
-  onInteract:
+  onInteractEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 204219908}

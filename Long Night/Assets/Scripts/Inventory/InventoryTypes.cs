@@ -6,7 +6,6 @@ public enum ItemType
     Regular,
     Skill,
     Equipment
-    // Добавьте другие типы по необходимости
 }
 
 [System.Serializable]
@@ -23,8 +22,8 @@ public enum ItemID
     FlashFury = 6,
     coin = 7,
     keyMainQuest = 8,
-
-    // Добавьте свои предметы
+    LifeImpulse = 9,
+    RealityRift = 10,
 }
 
 [System.Serializable]

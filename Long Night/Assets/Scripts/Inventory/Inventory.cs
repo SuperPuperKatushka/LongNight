@@ -85,11 +85,11 @@ public class Inventory : MonoBehaviour
             {
                 itemData.transform.SetParent(equipmentSlots[i].transform);
                 itemData.transform.localPosition = Vector3.zero;
-                equippedItems[i] = itemData;
 
                 int slotIndex = System.Array.IndexOf(slots, fromSlot);
                 if (slotIndex >= 0) isFull[slotIndex] = false;
 
+                PlayerStats.Instance.SaveEquippedItem(i, itemData);
                 ApplyItemEffects(itemData, true);
                 SaveInventory();
                 return true;
@@ -108,7 +108,10 @@ public class Inventory : MonoBehaviour
                 itemData.transform.localPosition = Vector3.zero;
 
                 int slotIndex = System.Array.IndexOf(equipmentSlots, fromEquipmentSlot);
-                if (slotIndex >= 0) equippedItems.Remove(slotIndex);
+                if (slotIndex >= 0)
+                {
+                    PlayerStats.Instance.equipmentData.equippedItems.RemoveAll(x => x.slotIndex == slotIndex);
+                }
 
                 isFull[i] = true;
                 ApplyItemEffects(itemData, false);
@@ -163,6 +166,8 @@ public class Inventory : MonoBehaviour
                         isEquipped = true,
                         prefabName = item.gameObject.name.Replace("(Clone)", "")
                     });
+                    // Сохраняем в equipmentData
+                    PlayerStats.Instance.SaveEquippedItem(i, item);
                 }
             }
         }
@@ -178,65 +183,40 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void LoadInventory()
+    private void LoadInventory()
     {
         ClearAllSlots();
-        var slotItems = PlayerStats.Instance.GetInventoryState();
-        Debug.Log($"Загружаем инвентарь, найдено {slotItems.Count} предметов");
 
+        // Загружаем обычные предметы
+        var slotItems = PlayerStats.Instance.GetInventoryState();
         foreach (var slotItem in slotItems)
         {
-            // Проверка корректности данных
-            if (string.IsNullOrEmpty(slotItem.prefabName))
+            if (!slotItem.isEquipped)
             {
-                Debug.LogWarning("Обнаружен предмет с пустым именем префаба");
-                continue;
+                LoadItemToSlot(slotItem, slots);
             }
+        }
 
-            // Загрузка префаба с учетом возможных вариантов именования
-            GameObject itemPrefab = Resources.Load<GameObject>($"Items/{slotItem.prefabName}") ??
-                                  Resources.Load<GameObject>($"Items/{slotItem.prefabName.Replace("(Clone)", "")}");
+        // Загружаем экипированные предметы из equipmentData
+        foreach (var equippedItem in PlayerStats.Instance.equipmentData.equippedItems)
+        {
+            LoadItemToSlot(equippedItem, equipmentSlots);
+        }
+    }
 
-            if (itemPrefab == null)
-            {
-                Debug.LogError($"Не удалось загрузить префаб: Items/{slotItem.prefabName}");
-                continue;
-            }
+    private void LoadItemToSlot(SlotItemData slotItem, GameObject[] targetSlots)
+    {
+        if (slotItem.slotIndex >= targetSlots.Length) return;
 
-            // Создание экземпляра предмета
-            GameObject itemObj = Instantiate(itemPrefab);
-            ItemData itemData = itemObj.GetComponent<ItemData>();
+        GameObject itemPrefab = Resources.Load<GameObject>($"Items/{slotItem.prefabName}");
+        if (itemPrefab == null) return;
 
-            if (itemData == null)
-            {
-                Debug.LogError($"У префаба {slotItem.prefabName} отсутствует компонент ItemData");
-                Destroy(itemObj);
-                continue;
-            }
+        GameObject itemObj = Instantiate(itemPrefab, targetSlots[slotItem.slotIndex].transform);
+        itemObj.transform.localPosition = Vector3.zero;
 
-            // Размещение в соответствующем слоте
-            if (slotItem.isEquipped)
-            {
-                if (slotItem.slotIndex < equipmentSlots.Length)
-                {
-                    itemObj.transform.SetParent(equipmentSlots[slotItem.slotIndex].transform);
-                    itemObj.transform.localPosition = Vector3.zero;
-                    itemObj.transform.localScale = Vector3.one; // Важно!
-                    equippedItems[slotItem.slotIndex] = itemData;
-                    Debug.Log($"Экипирован предмет {slotItem.prefabName} в слот {slotItem.slotIndex}");
-                }
-            }
-            else
-            {
-                if (slotItem.slotIndex < slots.Length)
-                {
-                    itemObj.transform.SetParent(slots[slotItem.slotIndex].transform);
-                    itemObj.transform.localPosition = Vector3.zero;
-                    itemObj.transform.localScale = Vector3.one; // Важно!
-                    isFull[slotItem.slotIndex] = true;
-                    Debug.Log($"Добавлен предмет {slotItem.prefabName} в слот {slotItem.slotIndex}");
-                }
-            }
+        if (targetSlots == slots)
+        {
+            isFull[slotItem.slotIndex] = true;
         }
     }
 
@@ -257,5 +237,27 @@ public class Inventory : MonoBehaviour
             }
         }
         equippedItems.Clear();
+    }
+
+
+    public List<ItemData> GetEquippedSkills()
+    {
+        List<ItemData> equippedSkills = new List<ItemData>();
+
+        // Проверяем все слоты экипировки
+        foreach (var slot in equipmentSlots)
+        {
+            // Если в слоте есть предмет и у него тип Skill
+            if (slot.transform.childCount > 0)
+            {
+                ItemData item = slot.transform.GetChild(0).GetComponent<ItemData>();
+                if (item != null && item.itemType == ItemType.Skill)
+                {
+                    equippedSkills.Add(item);
+                }
+            }
+        }
+
+        return equippedSkills;
     }
 }
