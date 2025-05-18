@@ -14,11 +14,8 @@ public class EnemyAI : MonoBehaviour
         damage = damage + extraDamagePoints;
 
         // Наносим урон игроку
-        PlayerStats.Instance.currentHP -= damage;
+        BattleManager.Instance.PlayerTakeDamage(damage);
         PlayerStats.Instance.currentHP = Mathf.Max(0, PlayerStats.Instance.currentHP);
-
-        // Показываем сообщение
-        BattleManager.Instance.ui.ShowMessage($"{EnemyStats.Instance.enemyName} атакует и наносит {damage} урона!");
 
         // Обновляем UI
         BattleManager.Instance.ui.UpdateUI();
@@ -26,10 +23,7 @@ public class EnemyAI : MonoBehaviour
         // Получаем силу атаки из EnemyStats (а не случайным образом)
         // Проверяем завершение боя
         BattleManager.Instance.CheckBattleEnd();
-        
-
+       
     }
-
-   
 }
 
