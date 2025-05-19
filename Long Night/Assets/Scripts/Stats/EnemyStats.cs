@@ -37,6 +37,8 @@ public class EnemyStats : MonoBehaviour
         currentHP = Mathf.Max(0, currentHP);
     }
 
+
+
     public bool IsDead()
     {
         return currentHP <= 0;

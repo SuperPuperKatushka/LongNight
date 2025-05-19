@@ -4,32 +4,27 @@ using System.Collections.Generic;
 
 public class ManaUI : MonoBehaviour
 {
-    public GameObject manaDotPrefab;
-    public Sprite filledSprite;
-    public Sprite emptySprite;
+    [Header("Настройки")]
+    public Transform manaContainer;  // Контейнер для иконок
+    public GameObject manaPrefab;    // Префаб одной единицы маны
 
-    private List<Image> manaDots = new List<Image>();
-
-    public void UpdateMana(int current, int max)
+    void Update()
     {
-        // Удаляем старые
-        foreach (Transform child in transform)
-            Destroy(child.gameObject);
+        UpdateManaDisplay();
+    }
 
-        manaDots.Clear();
-
-        // Создаем новые
-        for (int i = 0; i < max; i++)
+    void UpdateManaDisplay()
+    {
+        // Удаляем старые иконки
+        foreach (Transform child in manaContainer)
         {
-            GameObject dot = Instantiate(manaDotPrefab, transform);
-            Image img = dot.GetComponent<Image>();
+            Destroy(child.gameObject);
+        }
 
-            if (i < current)
-                img.sprite = filledSprite;
-            else
-                img.sprite = emptySprite;
-
-            manaDots.Add(img);
+        // Создаем новые иконки по текущему количеству маны
+        for (int i = 0; i < PlayerStats.Instance.currentMana; i++)
+        {
+            Instantiate(manaPrefab, manaContainer);
         }
     }
 }

@@ -12,20 +12,21 @@ public class BattleUI : MonoBehaviour
     public Slider enemyHPBar;
     public TMP_Text enemyHPText;
 
-    //public Transform manaDotsContainer;
-    //public GameObject manaDotPrefab;
-
     public TMP_Text messageText;
     public GameObject messageBox;
 
+    public GameObject messageTitleBox;
+    public TMP_Text messageTitleText;
+
+
     private Coroutine messageCoroutine;
 
-    //public ManaUI manaDisplay;
 
     void Start()
     {
         UpdateUI();
         messageBox.SetActive(false);
+        ChangeTitle("“вой ход");
     }
 
     void Update()
@@ -60,21 +61,15 @@ public class BattleUI : MonoBehaviour
         messageCoroutine = StartCoroutine(HideMessageAfterSeconds(5f));
     }
 
+    public void ChangeTitle(string title)
+    {
+        messageTitleText.text = title;
+    }
+
     private IEnumerator HideMessageAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         messageBox.SetActive(false);
     }
 }
-        //UpdateManaDisplay(stats.currentMana);
-
-    //void UpdateManaDisplay(int mana)
-    //{
-    //    foreach (Transform child in manaDotsContainer)
-    //        Destroy(child.gameObject);
-
-    //    for (int i = 0; i < mana; i++)
-    //    {
-    //        Instantiate(manaDotPrefab, manaDotsContainer);
-    //    }
-    //}
+     
