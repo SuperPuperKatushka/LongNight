@@ -10,7 +10,6 @@ public class Inventory : MonoBehaviour
     public bool[] isFull;
     public GameObject[] slots;
     public GameObject[] equipmentSlots;
-    public GameObject inventoryUI;
     private static Inventory instance;
 
     private bool inventoryOpen;
@@ -29,31 +28,10 @@ public class Inventory : MonoBehaviour
     {
        
         inventoryOpen = false;
-        inventoryUI.SetActive(false);
         LoadInventory();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            foreach (var slotItem in PlayerStats.Instance.GetInventoryState())
-                Debug.Log("¿¿¿¿¿¿¿ " + slotItem);
-            ToggleInventory();
-        }
-    }
 
-    public void ToggleInventory()
-    {
-        inventoryOpen = !inventoryOpen;
-        inventoryUI.SetActive(inventoryOpen);
-
-        if (!inventoryOpen)
-        {
-            UpdateSlotStatus();
-            SaveInventory();
-        }
-    }
 
     public bool AddItem(GameObject itemPrefab)
     {
