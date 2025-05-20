@@ -29,7 +29,6 @@ public class QuestUIEntry : MonoBehaviour
             var txt = textObj.GetComponent<TMP_Text>();
 
             txt.text = $"• {objective.GetProgressText()}";
-            txt.color = objective.IsComplete ? Color.green : Color.white;
         }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(objectivesContainer.GetComponent<RectTransform>());
