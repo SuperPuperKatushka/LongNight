@@ -20,7 +20,8 @@ public class PlayerVisual : MonoBehaviour
 
     private void Update()
     {
-        //animator.SetBool(IS_RUNNING, Player.Instance.IsRunning());
+        if (Player.Instance.IsMovementBlocked()) { return; }
+
         Vector2 inputVector = GameInput.Instance.GetMovementVector();
         
 

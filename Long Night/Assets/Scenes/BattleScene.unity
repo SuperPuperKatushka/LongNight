@@ -890,10 +890,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad39ed3a395fc14b9eb09395cee297d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: 
-  maxHP: 50
   currentHP: 0
+  currentMana: 0
+  maxHP: 50
+  isDefending: 0
+  consecutiveAttacks: 0
+  enemyName: 
   attackPower: 0
+  data:
+    enemyName: 
+    enemyType: 0
+    maxHP: 0
+    attackPower: 0
+    defensePower: 0
+    manaPool: 0
+    strongAttackChance: 0.3
+    healThreshold: 0.4
+    playerFinishThreshold: 0.3
+  StrongAttackCost: 2
+  HealCost: 3
+  HealAmount: 25
 --- !u!114 &460859164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,10 +933,10 @@ Animator:
   m_GameObject: {fileID: 460859160}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3029f9f489a45ac4eb4694cabdb9a338, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9e5e11d6c0d5ca742b8ca3a06e42c3ef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1260,6 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa964a8058341d84b80c8356cdf53220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorPlayer: {fileID: 1596950480}
+  animatorEnemy: {fileID: 460859165}
   enemy: {fileID: 460859163}
   ui: {fileID: 941144012}
   isPlayerTurn: 1

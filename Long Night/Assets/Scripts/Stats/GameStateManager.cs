@@ -1,25 +1,48 @@
 ﻿using UnityEngine;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // Все данные игры, которые нужно сохранять
     [System.Serializable]
     public class GameData
     {
-        //public QuestSystem.QuestSaveData questData;
-        // Другие данные (инвентарь, статистика игрока и т.д.)
+        public PlayerStats.PlayerStatsData playerStats;
+        public List<SlotItemData> inventoryItems;
+        public List<SlotItemData> equippedItems;
+
+        [System.Serializable]
+        public class QuestSave
+        {
+            public string questID;
+            public Quest.QuestState state;
+            public List<ObjectiveSave> objectives = new List<ObjectiveSave>();
+        }
+
+        [System.Serializable]
+        public class ObjectiveSave
+        {
+            public string type; // "Collect", "Kill", "Interact", "Talk"
+            public int currentProgress;
+            public bool isComplete;
+        }
+
+        [System.Serializable]
+        public class ChainQuestSave
+        {
+            public string chainID;
+            public int currentQuestIndex;
+        }
+
+        public List<QuestSave> questSaves = new List<QuestSave>();
+        public List<ChainQuestSave> chainQuestSaves = new List<ChainQuestSave>();
     }
+
+
 
     private GameData _currentGameData;
-
-    void Update()
-    {
-        QuestSystem.Instance.UpdateQuests(); // Запускает всю цепочку проверок
-    }
 
     private void Awake()
     {
@@ -34,58 +57,80 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Загрузка при старте
-    private void Start()
+ 
+    void Update()
     {
-        LoadGame();
+        QuestSystem.Instance?.UpdateQuests(); // Запускает всю цепочку проверок
     }
-
-    // Сохранение игры
     public void SaveGame()
     {
         _currentGameData = new GameData
         {
-            //questData = QuestSystem.Instance.GetSaveData(),
-            // Сохраняем другие системы...
+            playerStats = PlayerStats.Instance.GetSaveData(),
+            inventoryItems = PlayerStats.Instance.inventoryData.slotItems,
+            equippedItems = PlayerStats.Instance.equipmentData.equippedItems,
+            questSaves = QuestSystem.Instance.GetQuestsSaveData(),
+            chainQuestSaves = QuestSystem.Instance.GetChainQuestsSaveData(),
+
         };
 
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/save.dat";
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        formatter.Serialize(stream, _currentGameData);
-        stream.Close();
-
-        Debug.Log("Игра сохранена в " + path);
+        string json = JsonUtility.ToJson(_currentGameData, true);
+        string path = Path.Combine(Application.persistentDataPath, "save.json");
+        File.WriteAllText(path, json);
+        PlayerPrefs.Save();
+        Debug.Log($"Game saved to {path}\n{json}");
     }
 
-    // Загрузка игры
     public void LoadGame()
     {
-        string path = Application.persistentDataPath + "/save.dat";
+        string path = Path.Combine(Application.persistentDataPath, "save.json");
+        //Player.Instance.UnblockMovement();
+
         if (File.Exists(path))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+            string json = File.ReadAllText(path);
+            _currentGameData = JsonUtility.FromJson<GameData>(json);
 
-            _currentGameData = formatter.Deserialize(stream) as GameData;
-            stream.Close();
+            // Загружаем данные
+            PlayerStats.Instance.LoadSaveData(_currentGameData.playerStats);
+            PlayerStats.Instance.inventoryData.slotItems = _currentGameData.inventoryItems ?? new List<SlotItemData>();
+            PlayerStats.Instance.equipmentData.equippedItems = _currentGameData.equippedItems ?? new List<SlotItemData>();
+            QuestSystem.Instance.LoadQuests(_currentGameData.questSaves ?? new List<GameData.QuestSave>());
+            QuestSystem.Instance.LoadChainQuests(_currentGameData.chainQuestSaves ?? new List<GameData.ChainQuestSave>());
 
-            // Восстанавливаем данные квестов
-            //QuestSystem.Instance.LoadSaveData(_currentGameData.questData);
-
-            Debug.Log("Игра загружена из " + path);
         }
         else
         {
-            Debug.Log("Файл сохранения не найден. Создаём новую игру.");
             _currentGameData = new GameData();
+            NewGame();
         }
     }
 
-    // Для автосохранения при выходе
-    private void OnApplicationQuit()
+
+    public void NewGame()
     {
-        SaveGame();
+        string savePath = Path.Combine(Application.persistentDataPath, "save.json");
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+            Debug.Log("Save file deleted: " + savePath);
+        }
+        else
+        {
+            Debug.Log("No save file found to delete");
+        }
+
+        _currentGameData = new GameData();
+        ResetAllGameSystems();
+
     }
+    private void ResetAllGameSystems()
+    {
+        PlayerPositionData.Instance.savedPosition = new Vector2();
+        PlayerStats.Instance.inventoryData.slotItems.Clear();
+        PlayerStats.Instance.equipmentData.equippedItems.Clear();
+
+    }
+
+
 }

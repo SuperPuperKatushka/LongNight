@@ -33,7 +33,6 @@ public class SkillsUIManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        Debug.Log(equippedSkills.Count + "Скиллы");
         // Создание новых кнопок
         foreach (var skill in equippedSkills)
         {
