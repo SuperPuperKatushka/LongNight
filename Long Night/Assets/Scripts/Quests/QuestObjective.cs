@@ -20,7 +20,7 @@ public class CollectObjective : QuestObjective
 {
     public string itemID;
     public int requiredAmount;
-    private int currentAmount;
+    public int currentAmount;
 
     public override void Initialize()
     {
@@ -59,7 +59,7 @@ public class InteractObjective : QuestObjective
 {
     public string interactableId; // Переименовано для соответствия
     public int requiredInteractions = 1; // Переименовано для ясности
-    private int currentInteractions;
+    public int currentInteractions;
 
     public override void Initialize()
     {
@@ -107,7 +107,7 @@ public class TalkObjective : QuestObjective
 {
     public string npcID;
     public int requiredAmount;
-    private int currentAmount;
+    public int currentAmount;
 
     public override void Initialize()
     {
@@ -148,7 +148,7 @@ public class KillObjective : QuestObjective
 {
     public string enemyID;
     public int requiredKills;
-    private int currentKills;
+    public int currentKills;
 
     public override void Initialize()
     {

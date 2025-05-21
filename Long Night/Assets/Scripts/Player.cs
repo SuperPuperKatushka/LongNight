@@ -9,7 +9,14 @@ public class Player : MonoBehaviour
     private float minMovingSpeed = 0.1f;
     private bool isRunning = false;
 
-    // Функция до запуска Start 
+    private bool isMovementBlocked = false;
+
+    public void BlockMovement() => isMovementBlocked = true;
+    public bool IsMovementBlocked() => isMovementBlocked;
+
+    public void UnblockMovement() => isMovementBlocked = false;
+
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Start 
     private void Awake()
     {
         Instance = this;
@@ -32,10 +39,18 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (isMovementBlocked)
+        {
+            rb.linearVelocity = Vector2.zero;
+            isRunning = false;
+            return;
+        }
+
+
         Vector2 inputVector = GameInput.Instance.GetMovementVector();
         rb.MovePosition(rb.position + inputVector * (movingSpeed * Time.fixedDeltaTime));
 
-        // Выпилить при необходимости
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (Mathf.Abs(inputVector.x) > minMovingSpeed || Mathf.Abs(inputVector.y) > minMovingSpeed) {
             isRunning = true;
         } else

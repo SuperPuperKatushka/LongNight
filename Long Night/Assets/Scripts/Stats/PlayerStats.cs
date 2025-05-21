@@ -181,5 +181,55 @@ public class PlayerStats : MonoBehaviour
             });
         }
     }
+
+    [System.Serializable]
+    public class PlayerStatsData
+    {
+        public int level;
+        public int maxHP;
+        public int currentHP;
+        public int maxMana;
+        public int currentMana;
+        public int attackPower;
+        public int currentEXP;
+        public int expToLevelUp;
+    }
+
+    public PlayerStatsData GetSaveData()
+    {
+        return new PlayerStatsData
+        {
+            level = level,
+            maxHP = maxHP,
+            currentHP = currentHP,
+            maxMana = maxMana,
+            currentMana = currentMana,
+            attackPower = attackPower,
+            currentEXP = currentEXP,
+            expToLevelUp = expToLevelUp
+        };
+    }
+    public void LoadSaveData(PlayerStatsData data)
+    {
+        level = data.level;
+        maxHP = data.maxHP;
+        currentHP = data.currentHP;
+        maxMana = data.maxMana;
+        currentMana = data.currentMana;
+        attackPower = data.attackPower;
+        currentEXP = data.currentEXP;
+        expToLevelUp = data.expToLevelUp;
+    }
+
+    public void ResetToDefault()
+    {
+        level = 1;
+        ApplyLevelStats();
+        currentHP = maxHP;
+        currentMana = maxMana;
+        currentEXP = 0;
+        inventoryData.slotItems.Clear();
+        equipmentData.equippedItems.Clear();
+    }
 }
 

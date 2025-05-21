@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 using TMPro;
+using Codice.CM.Client.Differences.Graphic;
 
 public class BattleUI : MonoBehaviour
 {
@@ -44,9 +45,9 @@ public class BattleUI : MonoBehaviour
         playerHPText.text = $"{stats.currentHP}/{stats.maxHP}";
 
         var enemy = BattleManager.Instance.enemy;
-        enemyHPBar.maxValue = enemy.maxHP;
+        enemyHPBar.maxValue = enemy.data.maxHP;
         enemyHPBar.value = enemy.currentHP;
-        enemyHPText.text = $"{enemy.currentHP}/{enemy.maxHP}";
+        enemyHPText.text = $"{enemy.currentHP}/{enemy.data.maxHP}";
 
     }
 

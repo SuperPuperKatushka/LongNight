@@ -6,6 +6,13 @@ using System;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
+    public Animator animatorPlayer;
+    public Animator animatorEnemy;
+
+    private const string ATTACK_TRIGGER = "Attack";
+    private const string TAKE_DAMAGE = "TakeDamage";
+
+
 
     public EnemyStats enemy;
     public BattleUI ui;
@@ -35,8 +42,9 @@ public class BattleManager : MonoBehaviour
         {
             return;
         };
+        animatorPlayer.SetTrigger(ATTACK_TRIGGER);
         int damage = PlayerStats.Instance.attackPower;
-        enemy.TakeDamage(damage);
+        EnemyTakeDamage(damage);
         PlayerStats.Instance.currentMana = Mathf.Min(PlayerStats.Instance.maxMana, PlayerStats.Instance.currentMana + 1);
         ui.ShowMessage($"Ейден использует обычную атаку и наносит врагу {damage} урона!");
         ui.UpdateUI();
@@ -54,9 +62,10 @@ public class BattleManager : MonoBehaviour
 
         if (PlayerStats.Instance.currentMana >= 1)
         {
+            animatorPlayer.SetTrigger(ATTACK_TRIGGER);
             int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 1.5f);
             PlayerStats.Instance.currentMana--;
-            enemy.TakeDamage(damage);
+            EnemyTakeDamage(damage);
             ui.UpdateUI();
             CheckBattleEnd();
             ui.ShowMessage($"Эйдан использует сильную атаку и наносит врагу {damage} урона!");
@@ -71,15 +80,11 @@ public class BattleManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
-        //StartCoroutine(ChangeTurn());
         isPlayerTurn = false;
         ui.ChangeTitle("Ход врага!");
         StartCoroutine(EnemyTurn());
     }
-    IEnumerator ChangeTurn()
-    {
-        yield return new WaitForSeconds(3f);
-    }
+ 
 
     IEnumerator EnemyTurn()
     {
@@ -95,9 +100,6 @@ public class BattleManager : MonoBehaviour
         if (shieldReduction > 0)
         {
             int reducedDamage = Mathf.RoundToInt(damage * (1 - shieldReduction));
-            Debug.Log("reducedDamage" + reducedDamage);
-            Debug.Log("damage" + damage);
-
             damage = reducedDamage;
             shieldReduction = 0f; // Сбрасываем щит после использования
             ui.ShowMessage($"Щит поглотил часть урона! Получено {damage} урона");
@@ -110,7 +112,7 @@ public class BattleManager : MonoBehaviour
             ui.ShowMessage("Критический урон из реальности!");
         }
 
-        ui.ShowMessage($"Тень наносит Эйдану {damage} урона!");
+        animatorPlayer.SetTrigger(TAKE_DAMAGE);
         PlayerStats.Instance.TakeDamage(damage);
         ui.UpdateUI();
         CheckBattleEnd();
@@ -124,6 +126,7 @@ public class BattleManager : MonoBehaviour
             ui.ShowMessage("Ты победил!");
             //ui.ShowVictoryScreen(); // метод покажем ниже
             EnemyDataTransfer.Instance.shouldDestroyEnemy = true;
+            PlayerPrefs.SetString("SceneSave", "SampleScene");
             SceneManager.LoadScene("SampleScene");
             isPlayerTurn = false;
             return;
@@ -168,9 +171,10 @@ public class BattleManager : MonoBehaviour
 
 
 
-    internal void UseLifeImpulse(ItemData skill, int manaCost)
+    public void UseLifeImpulse(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost) ) return;
+        animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
         // Лечение 25% от максимального HP
         int healAmount = Mathf.RoundToInt(PlayerStats.Instance.maxHP * 0.25f);
@@ -181,22 +185,24 @@ public class BattleManager : MonoBehaviour
         EndPlayerTurn();
     }
 
-    internal void UseFuryFlash(ItemData skill, int manaCost)
+    public void UseFuryFlash(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
+        animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
-        // Урон 1.8x от атаки
-        int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 1.8f);
-        enemy.TakeDamage(damage);
+        // Урон 2.8x от атаки
+        int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 2.8f);
+        EnemyTakeDamage(damage);
         PlayerStats.Instance.SpendMana(2); // Стоимость 2 маны
 
         ui.ShowMessage($"Вспышка ярости! {damage} урона");
         EndPlayerTurn();
     }
 
-    internal void UseGuardianShield(ItemData skill, int manaCost)
+    public void UseGuardianShield(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
+        animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
         // Уменьшение следующего урона на 50%
         shieldReduction = 0.5f;
@@ -206,9 +212,11 @@ public class BattleManager : MonoBehaviour
         EndPlayerTurn();
     }
 
-    internal void UseRealityRift(ItemData skill, int manaCost)
+    public void UseRealityRift(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
+        animatorPlayer.SetTrigger(ATTACK_TRIGGER);
+
 
         // 50% шанс на эффект
         bool beneficialEffect = UnityEngine.Random.value > 0.5f;
@@ -217,7 +225,7 @@ public class BattleManager : MonoBehaviour
         {
             // Урон 35% от атаки
             int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 0.35f);
-            enemy.TakeDamage(damage);
+            EnemyTakeDamage(damage);
             ui.ShowMessage($"Разрыв реальности! {damage} урона врагу");
         }
         else
@@ -236,8 +244,14 @@ public class BattleManager : MonoBehaviour
 
     public void EndBattle()
     {
+        PlayerPrefs.SetString("SceneSave", "SampleScene");
         SceneManager.LoadScene("SampleScene");
     }
 
+    private void EnemyTakeDamage(int damage)
+    {
+        animatorEnemy.SetTrigger(TAKE_DAMAGE);
+        enemy.TakeDamage(damage);
+    }
 }
 

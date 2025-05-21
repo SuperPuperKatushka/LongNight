@@ -4,10 +4,16 @@ using UnityEngine.SceneManagement; // Для перехода в бой
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void StartGame()
     {
-        SceneManager.LoadScene("TempLocation");
+        PlayerPrefs.SetString("StartOrContinue", "Start");
+        SceneManager.LoadScene("LoaderScene");
+    }
+
+    public void ContinueGame()
+    {
+        PlayerPrefs.SetString("StartOrContinue", "Continue");
+        SceneManager.LoadScene("LoaderScene");
     }
     public void QuitGame()
     {
