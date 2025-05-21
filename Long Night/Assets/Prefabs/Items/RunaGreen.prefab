@@ -167,6 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 5376136204987116781, guid: cc0f9119e7b84e14682c25a95e60523c, type: 3}
+  onPickUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-4456347856777310631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +185,7 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.375
   m_Color: {r: 0.9178958, g: 1, b: 0.73018867, a: 1}
   m_Intensity: 1.2
   m_LightVolumeIntensity: 1
