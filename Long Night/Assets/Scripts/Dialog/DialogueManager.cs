@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour
         {
             ForceEndDialogue();
         }
+        Player.Instance?.BlockMovement();
         dialogueNpcId = npcId;
         currentDialogue = dialogue;
         currentNodeIndex = 0;
@@ -222,6 +223,7 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = false;
         dialogObject.SetActive(false);
         ClearChoices();
+        Player.Instance?.UnblockMovement();
         onDialogueEnd.Invoke();
         OnTalkEnd?.Invoke(dialogueNpcId);
     }

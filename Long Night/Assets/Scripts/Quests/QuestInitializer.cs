@@ -1,16 +1,37 @@
 // QuestInitializer.cs
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 
 public class QuestInitializer : MonoBehaviour
 {
     [SerializeField] private QuestData[] singleQuestDataAssets;
     [SerializeField] private ChainQuest[] chainQuestDataAssets;
 
+    public static QuestInitializer Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
+        string startOrContinue = PlayerPrefs.GetString("StartOrContinue");
+
         InitializeSingleQuests();
         InitializeChainQuests();
+
+        if (startOrContinue == "Continue")
+        {
+            GameManager.Instance.LoadGame();
+        }
     }
 
     private void InitializeSingleQuests()
@@ -28,11 +49,13 @@ public class QuestInitializer : MonoBehaviour
     {
         foreach (var chainData in chainQuestDataAssets)
         {
-            Debug.Log("Начинаем регистрацию  " );
             var runtimeChain = QuestSOConverter.ConvertToRuntimeChain(chainData);
             QuestSystem.Instance.RegisterChainQuest(runtimeChain);
-            Debug.Log("Зарегистрирована цепочка квестов  " + runtimeChain);
-
         }
+    }
+    public void ForceInitialize()
+    {
+        InitializeChainQuests();
+        InitializeSingleQuests();
     }
 }

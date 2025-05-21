@@ -7,7 +7,11 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject UIDiaryMenu;
     [SerializeField] private GameObject UIExitHelpPanel;
 
+    public void Start()
+    {
+       Time.timeScale = 1; // Возобновляем игру
 
+    }
     private void Update()
     {
         // Открытие разных меню по своим клавишам

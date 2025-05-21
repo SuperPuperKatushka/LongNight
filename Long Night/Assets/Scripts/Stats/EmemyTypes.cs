@@ -4,15 +4,18 @@ using UnityEngine;
 public class EnemyData
 {
     public string enemyName;
+    public EnemyType enemyType;
     public int maxHP;
     public int attackPower;
-    public EnemyType enemyType;
+    public int defensePower;
+    public int manaPool;
+    public float strongAttackChance = 0.3f;
+    public float healThreshold = 0.4f;
+    public float playerFinishThreshold = 0.3f;
 }
 
 public enum EnemyType
 {
-    Base,
-    Middle,
-    Strong,
-    Boss
+    Aggressive,  // Чаще атакует, сильные удары
+    Healer       // Лечит себя, выносливый
 }

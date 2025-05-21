@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a78a9bd745a1d4c8436648c7b8f229, type: 3}
   m_Name: StrongShadow
   m_EditorClassIdentifier: 
-  enemyName: Shadow
-  enemyType: 2
-  maxHP: 500
-  attackPower: 50
+  enemyName: "\u041E\u0441\u0442\u043E\u0440\u043E\u0436\u043D\u0430\u044F \u0442\u0435\u043D\u044C"
+  enemyType: 1
+  maxHP: 100
+  attackPower: 15
+  defensePower: 0
+  manaPool: 5
+  battleSprite: {fileID: 0}
+  strongAttackChance: 0.3
+  healThreshold: 0.4
+  playerFinishThreshold: 0.3

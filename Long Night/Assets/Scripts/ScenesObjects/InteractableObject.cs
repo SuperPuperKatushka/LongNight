@@ -28,7 +28,7 @@ public class InteractableObject : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Q))
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             TryInteract();
         }
