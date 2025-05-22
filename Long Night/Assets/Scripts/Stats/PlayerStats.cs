@@ -47,30 +47,37 @@ public class PlayerStats : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    // Применение урона к игроку
     public bool TakeDamage(int damage)
     {
         currentHP = Mathf.Max(0, currentHP - damage);
-        Debug.Log($"Игрок получил {damage} урона. Осталось HP: {currentHP}/{maxHP}");
 
         if (currentHP <= 0)
         {
-            //Die();
             return true;
         }
         return false;
     }
 
+    // Проверяет, мёртв ли игрок (HP равен 0 или меньше)
+    public bool IsDeath()
+    {
+        return currentHP <= 0;
+    }
+
+
+    // Восстановление здоровья на фиксированное значение
     public void Heal(int healAmount)
     {
         currentHP = Mathf.Min(maxHP, currentHP + healAmount);
-        Debug.Log($"Игрок восстановил {healAmount} HP. Теперь HP: {currentHP}/{maxHP}");
     }
 
+    // Восстановление здоровья в процентах от максимального
     public void Heal(float percent)
     {
         if (percent <= 0)
         {
-            Debug.LogWarning("Процент лечения должен быть больше 0");
             return;
         }
 
@@ -78,30 +85,31 @@ public class PlayerStats : MonoBehaviour
         Heal(healAmount); // Используем основную версию метода
     }
 
+    // Трата маны
     public bool SpendMana(int amount)
     {
         if (currentMana >= amount)
         {
             currentMana -= amount;
-            Debug.Log($"Потрачено {amount} маны. Осталось: {currentMana}/{maxMana}");
             return true;
         }
-        Debug.Log($"Недостаточно маны! Нужно: {amount}, есть: {currentMana}");
         return false;
     }
 
+    // Восстановление маны на указанное количество
     public void RestoreMana(int amount)
     {
         currentMana = Mathf.Min(maxMana, currentMana + amount);
-        Debug.Log($"Восстановлено {amount} маны. Теперь маны: {currentMana}/{maxMana}");
     }
 
+    // Получение опыта и проверка на повышение уровня
     public void GainEXP(int amount)
     {
         currentEXP += amount;
         CheckLevelUp();
     }
 
+    // Проверка и выполнение повышения уровня при достаточном опыте
     void CheckLevelUp()
     {
         while (currentEXP >= expToLevelUp && level < maxLevel)
@@ -111,13 +119,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    // Повышение уровня игрока и перерасчет характеристик
     public void LevelUp()
     {
         level++;
         ApplyLevelStats();
-        Debug.Log($"Level Up! New level: {level}");
     }
 
+    // Применение новых характеристик на основе уровня
     public void ApplyLevelStats()
     {
         maxHP = 200 + (level - 1) * 50;
@@ -136,7 +145,7 @@ public class PlayerStats : MonoBehaviour
         return inventoryData.slotItems;
     }
 
-    // Новый метод для получения экипированных навыков
+    // Метод для получения экипированных навыков
     public List<ItemData> GetEquippedSkills()
     {
         List<ItemData> skills = new List<ItemData>();
@@ -181,20 +190,7 @@ public class PlayerStats : MonoBehaviour
             });
         }
     }
-
-    [System.Serializable]
-    public class PlayerStatsData
-    {
-        public int level;
-        public int maxHP;
-        public int currentHP;
-        public int maxMana;
-        public int currentMana;
-        public int attackPower;
-        public int currentEXP;
-        public int expToLevelUp;
-    }
-
+    // Возвращает объект со всеми текущими параметрами игрока для сохранения
     public PlayerStatsData GetSaveData()
     {
         return new PlayerStatsData
@@ -209,6 +205,7 @@ public class PlayerStats : MonoBehaviour
             expToLevelUp = expToLevelUp
         };
     }
+    // Загружает параметры игрока из сохраненного состояния
     public void LoadSaveData(PlayerStatsData data)
     {
         level = data.level;
@@ -220,7 +217,7 @@ public class PlayerStats : MonoBehaviour
         currentEXP = data.currentEXP;
         expToLevelUp = data.expToLevelUp;
     }
-
+    // Сброс всех характеристик игрока до стартовых значений
     public void ResetToDefault()
     {
         level = 1;
@@ -231,5 +228,17 @@ public class PlayerStats : MonoBehaviour
         inventoryData.slotItems.Clear();
         equipmentData.equippedItems.Clear();
     }
-}
 
+    [System.Serializable]
+    public class PlayerStatsData
+    {
+        public int level;
+        public int maxHP;
+        public int currentHP;
+        public int maxMana;
+        public int currentMana;
+        public int attackPower;
+        public int currentEXP;
+        public int expToLevelUp;
+    }
+}

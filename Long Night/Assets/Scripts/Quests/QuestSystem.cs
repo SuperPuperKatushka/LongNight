@@ -4,7 +4,6 @@ using UnityEngine;
 using static GameManager;
 
 // Класс менеджера квестов 
-// Является синглотном, отлетает в GameManager сохраненными данными 
 
 public class QuestSystem : MonoBehaviour
 {
@@ -28,7 +27,7 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
-
+    // Регистрирует  и активирует его текущий этап
     public void RegisterChainQuest(RuntimeChainQuest chainQuest)
     {
         if (!chainQuests.ContainsKey(chainQuest.chainID))
@@ -36,39 +35,38 @@ public class QuestSystem : MonoBehaviour
             chainQuests.Add(chainQuest.chainID, chainQuest);
             Quest currentQuest = chainQuest.GetCurrentQuest();
             RegisterQuest(currentQuest);
-            currentQuest.UpdateState(); // ВРЕМЕННО
-
+            currentQuest.UpdateState();
             AcceptQuest(currentQuest.questID);
 
         }
     }
-
+    // Продвигает цепочку квестов на следующий этап после завершения текущего
     public void AdvanceChainQuest(string chainID)
     {
         if (chainQuests.TryGetValue(chainID, out RuntimeChainQuest chain))
         {
-            // 1. Завершаем текущий квест
+            //Завершение текущего квеста
             CompleteQuest(chain.GetCurrentQuest().questID);
 
-            // 2. Переходим к следующему
+            //Переход к следующему
             chain.AdvanceToNextQuest();
 
             if (!chain.IsChainComplete())
             {
-                // 3. Получаем следующий квест
+                //Получение следующего квеста
                 Quest nextQuest = chain.GetCurrentQuest();
 
-                // 4. Важно: сбрасываем состояние нового квеста
+                //Устанавливается состояние нового квеста
                 nextQuest.state = Quest.QuestState.Available;
 
-                // 5. Регистрируем и активируем
+                //Регистрация
                 RegisterQuest(nextQuest);
-                AcceptQuest(nextQuest.questID); // Это вызовет Initialize() для целей
+                AcceptQuest(nextQuest.questID); // Вызовет Initialize() для целей
             }
         }
 
     }
-
+    // Регистрирует одиночный квест в системе
     public void RegisterQuest(Quest quest)
     {
         Debug.Log("RegisterQuest " + quest.title + quest.state);
@@ -80,7 +78,7 @@ public class QuestSystem : MonoBehaviour
         OnQuestStateChanged?.Invoke();
 
     }
-
+    // Возвращает квест по его ID
     public static Quest GetQuest(string questID)
     {
         if (Instance.quests.TryGetValue(questID, out Quest quest))
@@ -89,10 +87,13 @@ public class QuestSystem : MonoBehaviour
         }
         return null;
     }
+
+    // Проверяет наличие цепного квеста по его ID
     public bool ChainExists(string chainID)
     {
         return chainQuests.ContainsKey(chainID);
     }
+    // Принимает квест и инициализирует его цели
     public void AcceptQuest(string questID)
     {
         Quest quest = GetQuest(questID);
@@ -110,6 +111,7 @@ public class QuestSystem : MonoBehaviour
         OnQuestStateChanged?.Invoke();
     }
 
+    // Завершает квест и выдает награду
     public void CompleteQuest(string questID)
     {
         Quest quest = GetQuest(questID);
@@ -126,6 +128,7 @@ public class QuestSystem : MonoBehaviour
         OnQuestStateChanged?.Invoke();
     }
 
+    // Инициализирует все цели указанного квеста
     private void InitializeQuestObjectives(Quest quest)
     {
         foreach (var objective in quest.objectives)
@@ -133,7 +136,7 @@ public class QuestSystem : MonoBehaviour
             objective.Initialize();
         }
     }
-
+    // Выдаёт все награды, связанные с квестом
     private void GiveRewards(Quest quest)
     {
         foreach (var reward in quest.rewards)
@@ -141,7 +144,7 @@ public class QuestSystem : MonoBehaviour
             reward.GiveReward();
         }
     }
-
+    // Обновляет состояние всех квестов в системе
     public void UpdateQuests()
     {
 
@@ -155,6 +158,7 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
+    // Проверяет завершение квеста и продвигает цепочку, если необходимо
     private void CheckQuestCompletion(Quest quest)
     {
         if (quest.IsComplete())
@@ -171,6 +175,7 @@ public class QuestSystem : MonoBehaviour
             CompleteQuest(quest.questID);
         }
     }
+    // Проверяет, завершен ли квест с выдачей награды
     public bool IsQuestCompleted(string questId)
     {
         if (quests.TryGetValue(questId, out Quest quest))
@@ -179,6 +184,8 @@ public class QuestSystem : MonoBehaviour
         }
         return false;
     }
+
+    // Возвращает список всех активных (выполняемых) квестов
     public List<Quest> GetActiveQuests()
     {
         var activeQuests = new List<Quest>();
@@ -209,6 +216,8 @@ public class QuestSystem : MonoBehaviour
 
         return activeQuests;
     }
+
+    // Возвращает сохраненные данные по всем одиночным квестам
     public List<GameData.QuestSave> GetQuestsSaveData()
     {
 
@@ -271,6 +280,7 @@ public class QuestSystem : MonoBehaviour
         return result;
     }
 
+    // Возвращает сохраненные данные по всем цепным квестам
     public List<GameData.ChainQuestSave> GetChainQuestsSaveData()
     {
 
@@ -289,6 +299,8 @@ public class QuestSystem : MonoBehaviour
         return result;
     }
 
+
+    // Загружает состояния одиночных квестов из сохранения
     public void LoadQuests(List<GameData.QuestSave> questSaves)
     {
         if (questSaves == null)
@@ -353,6 +365,7 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
+    // Загружает состояния цепочек квестов из сохранения
     public void LoadChainQuests(List<GameData.ChainQuestSave> chainSaves)
     {
         if (chainSaves == null)
@@ -376,7 +389,7 @@ public class QuestSystem : MonoBehaviour
             {
                 currentQuest.state = Quest.QuestState.Active;
 
-                // ✅ Регистрируем квест в основной словарь, чтобы он обновлялся
+                // Регистрируем квест в основной словарь, чтобы он обновлялся
                 RegisterQuest(currentQuest);
 
                 if (currentQuest.state == Quest.QuestState.Active)
@@ -392,7 +405,7 @@ public class QuestSystem : MonoBehaviour
     }
 
 
-
+    // Полностью сбрасывает систему квестов, включая цепочки и прогресс
     public void Reset()
     {
         // Сброс квестов
@@ -478,7 +491,5 @@ public class QuestSystem : MonoBehaviour
 
         Debug.Log("[QuestSystem] Система квестов сброшена.");
     }
-
-
 
 }
