@@ -27,7 +27,11 @@ public class LockController : MonoBehaviour
 
     public void TryUnlock()
     {
-        if (!isLocked) return; // Если уже разблокирован - ничего не делаем
+        if (!isLocked) {
+            dialogueManager.StartDialogue(unlockedDialogue, "stone");
+            return; // Если уже разблокирован - ничего не делаем
+        } 
+            
 
         // Проверяем наличие ключа
         hasKeyInInventory = CheckForKey();
@@ -72,11 +76,6 @@ public class LockController : MonoBehaviour
             animator.SetTrigger("Unlock");
         }
 
-        // Показываем диалог
-        if (unlockedDialogue != null)
-        {
-            dialogueManager.StartDialogue(unlockedDialogue, "stone");
-        }
 
         // Вызываем события
         onUnlock.Invoke();
