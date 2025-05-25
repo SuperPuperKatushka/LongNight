@@ -12,8 +12,6 @@ public class BattleManager : MonoBehaviour
     private const string ATTACK_TRIGGER = "Attack";
     private const string TAKE_DAMAGE = "TakeDamage";
 
-
-
     public EnemyStats enemy;
     public BattleUI ui;
 
@@ -24,24 +22,24 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
+        // Инициализация синглтона и обновление UI
         Instance = this;
         ui.UpdateUI();
     }
 
     private void Start()
     {
+        // Загрузка экипированных навыков и настройка кнопок
         var equippedSkills = PlayerStats.Instance.GetEquippedSkills();
         Debug.Log(equippedSkills.Count);
         SkillsUIManager.Instance.SetupSkillButtons(equippedSkills);
     }
 
+    // Обычная атака игрока
     public void PlayerAttack()
     {
+        if (!isPlayerTurn) return;
 
-        if (!isPlayerTurn)
-        {
-            return;
-        };
         animatorPlayer.SetTrigger(ATTACK_TRIGGER);
         int damage = PlayerStats.Instance.attackPower;
         EnemyTakeDamage(damage);
@@ -52,13 +50,10 @@ public class BattleManager : MonoBehaviour
         EndPlayerTurn();
     }
 
+    // Сильная атака, требует 1 маны
     public void PlayerStrongAttack()
     {
-        if (!isPlayerTurn)
-        {
-            return;
-
-        };
+        if (!isPlayerTurn) return;
 
         if (PlayerStats.Instance.currentMana >= 1)
         {
@@ -77,15 +72,15 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-
+    // Завершение хода игрока и запуск хода врага
     public void EndPlayerTurn()
     {
         isPlayerTurn = false;
         ui.ChangeTitle("Ход врага!");
         StartCoroutine(EnemyTurn());
     }
- 
 
+    // Ход врага с задержкой
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(2f);
@@ -95,19 +90,20 @@ public class BattleManager : MonoBehaviour
         ui.ChangeTitle("Твой ход!");
     }
 
+    // Получение урона игроком, с учетом эффектов (щит, крит)
     public void PlayerTakeDamage(int damage)
     {
         if (shieldReduction > 0)
         {
             int reducedDamage = Mathf.RoundToInt(damage * (1 - shieldReduction));
             damage = reducedDamage;
-            shieldReduction = 0f; // Сбрасываем щит после использования
+            shieldReduction = 0f;
             ui.ShowMessage($"Щит поглотил часть урона! Получено {damage} урона");
         }
 
         if (_realityRiftBonus)
         {
-            damage = Mathf.RoundToInt(damage * 1.5f); // Критический урон
+            damage = Mathf.RoundToInt(damage * 1.5f);
             _realityRiftBonus = false;
             ui.ShowMessage("Критический урон из реальности!");
         }
@@ -118,7 +114,7 @@ public class BattleManager : MonoBehaviour
         CheckBattleEnd();
     }
 
-
+    // Проверка завершения битвы
     public void CheckBattleEnd()
     {
         if (enemy.currentHP <= 0)
@@ -141,6 +137,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    // Проверка возможности использовать навык с учетом маны
     private bool CanUseSkill(ItemData skill, int manaCost)
     {
         if (!isPlayerTurn)
@@ -151,13 +148,14 @@ public class BattleManager : MonoBehaviour
 
         if (PlayerStats.Instance.currentMana < manaCost)
         {
-            ui.ShowMessage($"Недостаточно маны! Нужно { manaCost }");
+            ui.ShowMessage($"Недостаточно маны! Нужно {manaCost}");
             return false;
         }
 
         return true;
     }
 
+    // Проверка возможности использовать навык без маны
     private bool CanUseSkill(ItemData skill)
     {
         if (!isPlayerTurn)
@@ -169,89 +167,84 @@ public class BattleManager : MonoBehaviour
         return true;
     }
 
-
-
+    // Навык: Лечение 25% HP
     public void UseLifeImpulse(ItemData skill, int manaCost)
     {
-        if (!CanUseSkill(skill, manaCost) ) return;
+        if (!CanUseSkill(skill, manaCost)) return;
         animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
-        // Лечение 25% от максимального HP
         int healAmount = Mathf.RoundToInt(PlayerStats.Instance.maxHP * 0.25f);
         PlayerStats.Instance.Heal(healAmount);
-        PlayerStats.Instance.SpendMana(1); // Стоимость 1 маны
+        PlayerStats.Instance.SpendMana(1);
 
         ui.ShowMessage($"Жизненный импульс! +{healAmount} HP");
         EndPlayerTurn();
     }
 
+    // Навык: Мощный удар с множителем 2.8
     public void UseFuryFlash(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
         animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
-        // Урон 2.8x от атаки
         int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 2.8f);
         EnemyTakeDamage(damage);
-        PlayerStats.Instance.SpendMana(2); // Стоимость 2 маны
+        PlayerStats.Instance.SpendMana(2);
 
         ui.ShowMessage($"Вспышка ярости! {damage} урона");
         EndPlayerTurn();
     }
 
+    // Навык: Уменьшение урона следующей атаки
     public void UseGuardianShield(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
         animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
-        // Уменьшение следующего урона на 50%
         shieldReduction = 0.5f;
-        PlayerStats.Instance.SpendMana(2); // Стоимость 2 маны
+        PlayerStats.Instance.SpendMana(2);
 
         ui.ShowMessage($"Щит стража! Следующая атака ослаблена на 50%");
         EndPlayerTurn();
     }
 
+    // Навык: случайный эффект (урон врагу или себе)
     public void UseRealityRift(ItemData skill, int manaCost)
     {
         if (!CanUseSkill(skill, manaCost)) return;
         animatorPlayer.SetTrigger(ATTACK_TRIGGER);
 
-
-        // 50% шанс на эффект
         bool beneficialEffect = UnityEngine.Random.value > 0.5f;
 
         if (beneficialEffect)
         {
-            // Урон 35% от атаки
             int damage = Mathf.RoundToInt(PlayerStats.Instance.attackPower * 0.35f);
             EnemyTakeDamage(damage);
             ui.ShowMessage($"Разрыв реальности! {damage} урона врагу");
         }
         else
         {
-            // Потеря 25% текущего HP
             int damage = Mathf.RoundToInt(PlayerStats.Instance.currentHP * 0.25f);
             PlayerStats.Instance.TakeDamage(damage);
             ui.ShowMessage($"Разрыв реальности! Вы получили {damage} урона");
         }
 
         _realityRiftBonus = beneficialEffect;
-        PlayerStats.Instance.SpendMana(1); // Стоимость 1 маны
+        PlayerStats.Instance.SpendMana(1);
         EndPlayerTurn();
     }
 
-
+    // Завершение битвы и переход на сцену
     public void EndBattle()
     {
         PlayerPrefs.SetString("SceneSave", "SampleScene");
         SceneManager.LoadScene("SampleScene");
     }
 
+    // Применение урона врагу
     private void EnemyTakeDamage(int damage)
     {
         animatorEnemy.SetTrigger(TAKE_DAMAGE);
         enemy.TakeDamage(damage);
     }
 }
-

@@ -28,8 +28,10 @@ public class DialogueManager : MonoBehaviour
     private bool isDialogueActive = false;
     private Coroutine typingCoroutine;
 
+    // ѕровер€ет, активен ли сейчас диалог
     public bool IsDialogueActive() => isDialogueActive;
 
+    // «апускает новый диалог: блокирует движение игрока, активирует UI, показывает первую реплику
     public void StartDialogue(DialogueData dialogue, string npcId)
     {
         // ≈сли уже есть активный диалог - прерываем его
@@ -47,6 +49,7 @@ public class DialogueManager : MonoBehaviour
         ShowCurrentNode();
     }
 
+    // ќтображает текущий узел диалога: устанавливает им€, текст, аватар, создает кнопки выбора или ждет нажати€
     private void ShowCurrentNode()
     {
         ClearChoices();
@@ -101,6 +104,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // ¬озвращает подход€щие диалоговые узлы: если есть override'ы с выполненными услови€ми Ч примен€ет их
     private DialogueNode[] GetCurrentNodes()
     {
         List<DialogueOverride> validOverrides = new List<DialogueOverride>();
@@ -132,6 +136,7 @@ public class DialogueManager : MonoBehaviour
         return currentDialogue.defaultNodes;
     }
 
+    // ѕровер€ет, выполнены ли услови€ дл€ конкретного диалога (по квестам)
     private bool CheckConditions(DialogueCondition[] conditions)
     {
         if (QuestSystem.Instance == null) return false;
@@ -147,6 +152,7 @@ public class DialogueManager : MonoBehaviour
         return true;
     }
 
+    // —оздает кнопку выбора ответа в диалоге и прив€зывает к ней обработчик выбора
     private void CreateChoiceButton(DialogueChoice choice)
     {
         GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer);
@@ -154,6 +160,7 @@ public class DialogueManager : MonoBehaviour
         buttonObj.GetComponent<Button>().onClick.AddListener(() => OnChoiceSelected(choice.nextNodeIndex));
     }
 
+    // ѕечатает диалог по одному символу за кадр
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
@@ -165,6 +172,7 @@ public class DialogueManager : MonoBehaviour
         typingCoroutine = null;
     }
 
+    // ∆дет отпускани€ и повторного нажати€ пробела дл€ перехода к следующей реплике
     IEnumerator WaitForContinue()
     {
         yield return new WaitUntil(() => !Input.GetKey(KeyCode.Space));
@@ -174,6 +182,7 @@ public class DialogueManager : MonoBehaviour
         ShowCurrentNode();
     }
 
+    // ќбрабатывает выбор игрока Ч переходит к следующему узлу или завершает диалог
     private void OnChoiceSelected(int nextNode)
     {
         DialogueNode[] nodesToUse = GetCurrentNodes();
@@ -189,6 +198,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // ”дал€ет все кнопки выбора с UI
     private void ClearChoices()
     {
         foreach (Transform child in choicesContainer)
@@ -197,6 +207,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // ѕринудительно завершает диалог, если он еще активен
     public void ForceEndDialogue()
     {
         if (typingCoroutine != null)
@@ -204,9 +215,9 @@ public class DialogueManager : MonoBehaviour
             StopCoroutine(typingCoroutine);
         }
         EndDialogue();
-
     }
 
+    // «авершает диалог: скрывает UI, очищает состо€ни€, разблокирует игрока, вызывает событи€ завершени€
     public void EndDialogue()
     {
         if (currentDialogue != null)

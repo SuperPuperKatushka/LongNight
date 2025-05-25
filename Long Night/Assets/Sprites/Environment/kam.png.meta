@@ -126,10 +126,10 @@ TextureImporter:
       name: kam_0
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 0
-        width: 34
-        height: 53
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,10 +148,10 @@ TextureImporter:
       name: kam_1
       rect:
         serializedVersion: 2
-        x: 79
+        x: 64
         y: 0
-        width: 34
-        height: 53
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,10 +170,10 @@ TextureImporter:
       name: kam_2
       rect:
         serializedVersion: 2
-        x: 144
+        x: 128
         y: 0
-        width: 34
-        height: 53
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: kam_3
       rect:
         serializedVersion: 2
-        x: 205
+        x: 192
         y: 0
-        width: 38
-        height: 59
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
