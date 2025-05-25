@@ -240,3 +240,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 11400000, guid: c9b57033d712cce499cc3f0274ceb72c, type: 2}
+  npcId: 
