@@ -607,6 +607,7 @@ GameObject:
   - component: {fileID: 267349879}
   - component: {fileID: 267349877}
   - component: {fileID: 267349878}
+  - component: {fileID: 267349881}
   m_Layer: 5
   m_Name: VolumeButton
   m_TagString: Untagged
@@ -727,6 +728,21 @@ RectTransform:
   m_AnchoredPosition: {x: 359.2, y: 189.5}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &267349881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267349876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd5ac6ffab3d148ab34c2290323ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundOnSprite: {fileID: 3729461876300729580, guid: 0f1b3284451218d4e97e16523b7c97ec, type: 3}
+  soundOffSprite: {fileID: 3729461876300729580, guid: 598968cbd69cccb47b1cf31ce1c2473c, type: 3}
+  buttonImage: {fileID: 267349877}
 --- !u!1 &475151032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,13 +1549,13 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: e7db94243a8a57343ac15a9cd715bc00, type: 3}
   m_Resource: {fileID: 8300000, guid: e7db94243a8a57343ac15a9cd715bc00, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 129
+  Priority: 78
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1644,10 +1660,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef8f8cfbb7904c44a598c3642022500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 1649212695}
-  soundOnSprite: {fileID: 3729461876300729580, guid: 0f1b3284451218d4e97e16523b7c97ec, type: 3}
-  soundOffSprite: {fileID: 3729461876300729580, guid: 598968cbd69cccb47b1cf31ce1c2473c, type: 3}
-  buttonImage: {fileID: 267349877}
+  _backgroundMusicSource: {fileID: 1649212695}
+  _backgroundMusicTracks:
+  - {fileID: 8300000, guid: e7db94243a8a57343ac15a9cd715bc00, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: cc1f1d0abe00ac54795225a316ae2026, type: 3}
+  - {fileID: 8300000, guid: cc1f1d0abe00ac54795225a316ae2026, type: 3}
+  - {fileID: 8300000, guid: dfc99f822ee799d4f8aebdb6a574b765, type: 3}
 --- !u!1 &1973154907
 GameObject:
   m_ObjectHideFlags: 0
