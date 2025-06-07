@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement; // Для перехода в бой
 
 public class MenuManager : MonoBehaviour
 {
+    private void Start()
+    {
+        
+    }
     public void StartGame()
     {
         PlayerPrefs.SetString("StartOrContinue", "Start");

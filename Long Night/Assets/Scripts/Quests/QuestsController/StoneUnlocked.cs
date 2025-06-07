@@ -18,7 +18,13 @@ public class LockController : MonoBehaviour
     private Inventory inventory;
     private DialogueManager dialogueManager;
     private bool hasKeyInInventory;
+    
+    private AudioSource _audioSource;
 
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -66,7 +72,8 @@ public class LockController : MonoBehaviour
     {
         // Убираем ключ из инвентаря
         RemoveKeyFromInventory();
-
+        AudioController.Instance.RegisterSoundEffect(_audioSource);
+        _audioSource.Play();
         // Меняем состояние замка
         isLocked = false;
 
