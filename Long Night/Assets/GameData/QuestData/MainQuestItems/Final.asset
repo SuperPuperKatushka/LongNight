@@ -23,8 +23,5 @@ MonoBehaviour:
     description: 
     targetID: stone
     requiredAmount: 1
-  rewards:
-  - type: 1
-    itemID: 
-    amount: 10
+  rewards: []
   requirements: []
