@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
         PlayerPositionData.Instance.savedPosition = new Vector2();
         PlayerStats.Instance.inventoryData.slotItems.Clear();
         PlayerStats.Instance.equipmentData.equippedItems.Clear();
+        PlayerStats.Instance.ResetToDefault();
 
     }
 

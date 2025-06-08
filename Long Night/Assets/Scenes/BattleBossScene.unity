@@ -996,8 +996,8 @@ GameObject:
   m_Component:
   - component: {fileID: 460859162}
   - component: {fileID: 460859161}
-  - component: {fileID: 460859164}
   - component: {fileID: 460859163}
+  - component: {fileID: 460859166}
   - component: {fileID: 460859165}
   m_Layer: 0
   m_Name: Shadow
@@ -1108,19 +1108,6 @@ MonoBehaviour:
   StrongAttackCost: 2
   HealCost: 3
   HealAmount: 25
---- !u!114 &460859164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460859160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65fb24a5c3f494e4f9f7efcf27b702a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 460859165}
 --- !u!95 &460859165
 Animator:
   serializedVersion: 7
@@ -1143,6 +1130,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &460859166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460859160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d229ec2bc44902844b842eef097aa93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 460859165}
 --- !u!1 &619667582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,8 +2143,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -224.99994}
-  m_SizeDelta: {x: 800, y: 450}
+  m_AnchoredPosition: {x: 409.31256, y: -230.2383}
+  m_SizeDelta: {x: 818.63, y: 460.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1285216363
 MonoBehaviour:
