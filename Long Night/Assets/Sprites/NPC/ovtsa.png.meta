@@ -126,10 +126,10 @@ TextureImporter:
       name: ovtsa_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 10
-        width: 29
-        height: 36
+        x: 11
+        y: 8
+        width: 36
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
