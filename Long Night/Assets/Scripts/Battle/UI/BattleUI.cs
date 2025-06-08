@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 using TMPro;
-using Codice.CM.Client.Differences.Graphic;
+//using Codice.CM.Client.Differences.Graphic;
 using UnityEngine.SceneManagement;
 
 public class BattleUI : MonoBehaviour
