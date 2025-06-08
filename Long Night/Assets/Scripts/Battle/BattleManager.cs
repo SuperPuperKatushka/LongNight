@@ -120,7 +120,6 @@ public class BattleManager : MonoBehaviour
         if (enemy.currentHP <= 0)
         {
             ui.ShowMessage("Ты победил!");
-            //ui.ShowVictoryScreen(); // метод покажем ниже
             EnemyDataTransfer.Instance.shouldDestroyEnemy = true;
             PlayerPrefs.SetString("SceneSave", "SampleScene");
             SceneManager.LoadScene("SampleScene");
@@ -131,7 +130,7 @@ public class BattleManager : MonoBehaviour
         if (PlayerStats.Instance.currentHP <= 0)
         {
             ui.ShowMessage("Ты проиграл...");
-            //ui.ShowDefeatScreen(); // метод тоже покажем
+            ui.ShowDefeatScreen();
             isPlayerTurn = false;
             return;
         }

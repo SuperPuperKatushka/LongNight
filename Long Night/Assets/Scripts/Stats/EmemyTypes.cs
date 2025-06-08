@@ -17,5 +17,6 @@ public class EnemyData
 public enum EnemyType
 {
     Aggressive,  // Чаще атакует, сильные удары
-    Healer       // Лечит себя, выносливый
+    Healer,     // Лечит себя, выносливый
+    Boss       // Очень сильный
 }
