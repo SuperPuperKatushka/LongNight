@@ -17,7 +17,7 @@ MonoBehaviour:
     sentence: "\u0411\u0436\u0436\u0436...\u0431\u0436...\u0431\u0436....."
     choices:
     - choiceText: "\u0411\u0436...?"
-      nextNodeIndex: 0
+      nextNodeIndex: -1
     onNodeEnter:
       m_PersistentCalls:
         m_Calls: []
