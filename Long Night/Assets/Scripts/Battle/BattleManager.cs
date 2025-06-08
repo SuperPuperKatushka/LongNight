@@ -84,7 +84,14 @@ public class BattleManager : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(2f);
-        enemy.GetComponent<EnemyAI>().TakeTurn();
+
+        if (enemy.data.enemyType == EnemyType.Boss)
+        {
+            enemy.GetComponent<BossAI>().TakeTurn();
+        } else
+        {
+            enemy.GetComponent<EnemyAI>().TakeTurn();
+        }
         yield return new WaitForSeconds(2f);
         isPlayerTurn = true;
         ui.ChangeTitle("Твой ход!");
@@ -119,6 +126,7 @@ public class BattleManager : MonoBehaviour
     {
         if (enemy.currentHP <= 0)
         {
+            
             ui.ShowMessage("Ты победил!");
             EnemyDataTransfer.Instance.shouldDestroyEnemy = true;
             PlayerPrefs.SetString("SceneSave", "SampleScene");
@@ -130,6 +138,19 @@ public class BattleManager : MonoBehaviour
 
         if (PlayerStats.Instance.currentHP <= 0)
         {
+            Debug.Log("ааааааа" + enemy.data.enemyType);
+            Debug.Log("ВВ" + (enemy.data.enemyType == EnemyType.Boss));
+
+
+            if ((enemy.data.enemyType == EnemyType.Boss) || (enemy.enemyName == "Малграх"))
+            {
+               
+                Debug.Log("Удаляем");
+                PlayerPrefs.DeleteKey("ChoiceDialog_ChoiceMade");
+                PlayerPrefs.DeleteKey("ChoiceDialog_Side");  
+                PlayerPrefs.Save();
+              
+            }
             ui.ShowMessage("Ты проиграл...");
             ui.ShowDefeatScreen();
             isPlayerTurn = false;

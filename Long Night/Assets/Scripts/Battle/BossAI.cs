@@ -135,7 +135,7 @@ public class BossAI : MonoBehaviour
         EnemyStats.Instance.SpendMana(5);
         BattleManager.Instance.PlayerTakeDamage(damage);
 
-        BattleManager.Instance.ui.ShowMessage($"<color=red>{EnemyStats.Instance.data.enemyName} использует —ћ≈–“≈Ћ№Ќ”ё ј“ј ” и наносит {damage} урона!</color>");
+        BattleManager.Instance.ui.ShowMessage($"{EnemyStats.Instance.data.enemyName} использует —ћ≈–“≈Ћ№Ќ”ё ј“ј ” и наносит {damage} урона!");
     }
 
     private void PerformAttack()
@@ -152,7 +152,7 @@ public class BossAI : MonoBehaviour
         int damage = CalculateDamage(Mathf.RoundToInt(EnemyStats.Instance.data.attackPower * 2.2f));
         EnemyStats.Instance.SpendMana(EnemyStats.Instance.StrongAttackCost);
         BattleManager.Instance.PlayerTakeDamage(damage);
-        BattleManager.Instance.ui.ShowMessage($"<color=orange>{EnemyStats.Instance.data.enemyName} использует мощную атаку и наносит {damage} урона!</color>");
+        BattleManager.Instance.ui.ShowMessage($"{EnemyStats.Instance.data.enemyName} использует мощную атаку и наносит {damage} урона!");
     }
 
     private void PerformHeal()

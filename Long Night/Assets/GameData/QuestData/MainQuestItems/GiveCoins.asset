@@ -27,4 +27,7 @@ MonoBehaviour:
   - type: 0
     itemID: Key
     amount: 1
+  - type: 1
+    itemID: 
+    amount: 10
   requirements: []
