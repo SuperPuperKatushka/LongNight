@@ -4,6 +4,7 @@ using System.Collections;
 
 using TMPro;
 using Codice.CM.Client.Differences.Graphic;
+using UnityEngine.SceneManagement;
 
 public class BattleUI : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class BattleUI : MonoBehaviour
     public GameObject messageTitleBox;
     public TMP_Text messageTitleText;
 
+    public GameObject defeatScreen;
+    public Button BackToMainScreen;
+
 
     private Coroutine messageCoroutine;
 
@@ -28,6 +32,7 @@ public class BattleUI : MonoBehaviour
         UpdateUI();
         messageBox.SetActive(false);
         ChangeTitle("“вой ход");
+        BackToMainScreen.onClick.AddListener(OnBackToMainScreenClicked);
     }
 
     void Update()
@@ -72,5 +77,18 @@ public class BattleUI : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         messageBox.SetActive(false);
     }
+
+    public void ShowDefeatScreen()
+    {
+        defeatScreen.SetActive(true);
+    }
+
+
+
+    private void OnBackToMainScreenClicked()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
 }
-     
+

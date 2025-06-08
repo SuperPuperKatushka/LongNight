@@ -1265,7 +1265,7 @@ MonoBehaviour:
   saveFileName: save.json
   continueButton: {fileID: 1241011488}
   buttonText: {fileID: 1005544517}
-  disabledAlpha: 0.5
+  disabledAlpha: 0.25
   changeInteractable: 1
   changeTransparency: 1
 --- !u!1 &1513910290
