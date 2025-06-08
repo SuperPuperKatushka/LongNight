@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6891cb73ae1c7114ba134a4126cee481
+guid: 60504254d87027f4c93f3cc4dad5f9f4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,23 +123,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stol_0
+      name: feathers_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 32
-        height: 23
-      alignment: 9
-      pivot: {x: 0.49301192, y: 1.1611367}
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b960f2d72a10a4e49b7160ec00fe281b
-      internalID: -515934112
+      spriteID: 0834a81dbce7da3469462c058c466e63
+      internalID: -1794885811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: feathers_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347b2e8ba22a10740a97f7ac40ee0a82
+      internalID: -84001999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: feathers_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d061bdd891e0ec41916969c59170c98
+      internalID: 1512456838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: feathers_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b530d35066867478dc2396b073c2ef
+      internalID: -522466359
       vertices: []
       indices: 
       edges: []
@@ -158,7 +224,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stol_0: -515934112
+      feathers_0: -1794885811
+      feathers_1: -84001999
+      feathers_2: 1512456838
+      feathers_3: -522466359
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
