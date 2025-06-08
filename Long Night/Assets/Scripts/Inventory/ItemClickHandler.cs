@@ -1,47 +1,81 @@
-using System.Linq;
-using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine;
+using NUnit.Framework.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
-public class ItemClickHandler : MonoBehaviour, IPointerClickHandler
+public class ItemClickHandler : MonoBehaviour, IPointerClickHandler,
+    IPointerEnterHandler, IPointerExitHandler
 {
     private Inventory inventory;
-    private GameObject parentSlot;
+    private ItemData itemData;
 
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-        parentSlot = transform.parent.gameObject;
+        itemData = GetComponent<ItemData>();
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (itemData != null)
+        {
+            string tooltipText = $"<b>{itemData.itemName}</b>\n{itemData.description}";
+            TooltipManager.Instance.ShowTooltip(tooltipText);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // Скрываем тултип при уходе курсора
+        TooltipManager.Instance.HideTooltip();
+
+        // Дополнительно: скрываем контекстное меню если курсор ушел с предмета
+        if (!IsPointerOverContextMenu())
+        {
+            ContextMenuSystem.Instance.HideMenu();
+        }
+    }
+
+    private bool IsPointerOverContextMenu()
+    {
+        // Получаем RectTransform меню
+        RectTransform menuRect = ContextMenuSystem.Instance.contextMenuPanel.GetComponent<RectTransform>();
+
+        // Конвертируем позицию курсора в локальные координаты меню
+        Vector2 localMousePosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            menuRect,
+            Input.mousePosition,
+            null, // Используем текущую камеру
+            out localMousePosition);
+
+        // Проверяем, находится ли точка внутри прямоугольника меню
+        return menuRect.rect.Contains(localMousePosition);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-            Debug.Log("PointerEventData.InputButton.Left");
         ItemData itemData = GetComponent<ItemData>();
         if (itemData == null) return;
 
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
+        // Получаем текущий родительский слот при каждом клике
+        GameObject currentSlot = transform.parent.gameObject;
 
-            if (itemData.itemType == ItemType.Skill || itemData.itemType == ItemType.Equipment)
-            {
-                if (!inventory.equipmentSlots.Contains(parentSlot))
-                {
-                    inventory.EquipItem(itemData, parentSlot);
-                }
-            }
-            else
-            {
-                //UseItem(itemData);
-            }
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("PointerEventData.InputButton.Right");
-
-            if (inventory.equipmentSlots.Contains(parentSlot))
+            // Проверяем, не открыто ли уже меню
+            if (ContextMenuSystem.Instance.contextMenuPanel.activeSelf)
             {
-                inventory.UnequipItem(itemData, parentSlot);
+                ContextMenuSystem.Instance.HideMenu();
+                return;
             }
+
+            // Показываем контекстное меню
+            ContextMenuSystem.Instance.ShowMenu(
+                itemData,
+                transform.parent.gameObject,
+                eventData.position
+            );
         }
     }
 
