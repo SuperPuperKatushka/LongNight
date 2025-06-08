@@ -24,6 +24,8 @@ public enum ItemID
     keyMainQuest = 8,
     LifeImpulse = 9,
     RealityRift = 10,
+    LightRuna= 11,
+    DarkRuna = 12,
 }
 
 [System.Serializable]

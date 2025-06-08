@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public bool[] isFull;
     public GameObject[] slots;
     public GameObject[] equipmentSlots;
+    public GameMessage gameMessage;
     private static Inventory instance;
 
     private bool inventoryOpen;
@@ -46,6 +47,12 @@ public class Inventory : MonoBehaviour
                 isFull[i] = true;
                 SaveInventory();
                 OnItemPickUp?.Invoke(itemData.itemID.ToString());
+
+                if (gameMessage != null)
+                {
+                    string text = "Предмет " + itemData.itemName + " добавлен в инвентарь";
+                    gameMessage.ShowItemMessage(text);
+                }
                 return true;
             }
         }

@@ -19,5 +19,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ce9d0dd45d7d1140aa3e2e2f325d856, type: 2}
   - {fileID: 11400000, guid: 335e9291c9de8d648bc3e424720d9c13, type: 2}
   - {fileID: 11400000, guid: 0d7bf6b11cb268641a1aee4506f992a0, type: 2}
+  - {fileID: 11400000, guid: fafce0fcb76b09a4680ee74db36d41b7, type: 2}
+  - {fileID: 11400000, guid: 8cad31eab1e8e864a8fa7d1b2ae19664, type: 2}
+  - {fileID: 11400000, guid: 05e6ac4406aa17a4f9de2e439e944e9c, type: 2}
+  - {fileID: 11400000, guid: e76c9a4863f367148bfbd3b63770303e, type: 2}
   restartFromBeginning: 0
   currentQuestIndex: 0

@@ -38,10 +38,10 @@ public class ItemClickHandler : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log("PointerEventData.InputButton.Right");
 
-            //if (inventory.equipmentSlots.Contains(parentSlot))
-            //{
-            //    inventory.UnequipItem(itemData, parentSlot);
-            //}
+            if (inventory.equipmentSlots.Contains(parentSlot))
+            {
+                inventory.UnequipItem(itemData, parentSlot);
+            }
         }
     }
 
