@@ -85,26 +85,61 @@ public class Inventory : MonoBehaviour
 
     public bool UnequipItem(ItemData itemData, GameObject fromEquipmentSlot)
     {
+        // 1. Находим свободный обычный слот
+        int freeSlotIndex = -1;
         for (int i = 0; i < slots.Length; i++)
         {
-            if (!isFull[i])
+            if (slots[i].transform.childCount == 0)
             {
-                itemData.transform.SetParent(slots[i].transform);
-                itemData.transform.localPosition = Vector3.zero;
-
-                int slotIndex = System.Array.IndexOf(equipmentSlots, fromEquipmentSlot);
-                if (slotIndex >= 0)
-                {
-                    PlayerStats.Instance.equipmentData.equippedItems.RemoveAll(x => x.slotIndex == slotIndex);
-                }
-
-                isFull[i] = true;
-                ApplyItemEffects(itemData, false);
-                SaveInventory();
-                return true;
+                freeSlotIndex = i;
+                break;
             }
         }
-        return false;
+
+        if (freeSlotIndex == -1)
+        {
+            return false;
+        }
+
+        // 2. Получаем индекс слота экипировки
+        int equipmentSlotIndex = System.Array.IndexOf(equipmentSlots, fromEquipmentSlot);
+        if (equipmentSlotIndex < 0)
+        {
+            return false;
+        }
+
+        // 3. Переносим предмет
+        itemData.transform.SetParent(slots[freeSlotIndex].transform);
+        itemData.transform.localPosition = Vector3.zero;
+        itemData.transform.localScale = Vector3.one; // На всякий случай
+
+        // 4. Обновляем состояние
+        isFull[freeSlotIndex] = true;
+        PlayerStats.Instance.equipmentData.equippedItems.RemoveAll(x => x.slotIndex == equipmentSlotIndex);
+
+        // 5. Обновляем статус слотов
+        UpdateSlotStatus();
+        ApplyItemEffects(itemData, false);
+        SaveInventory();
+
+        return true;
+    }
+
+    public void ClearSlot(int slotIndex, bool isEquipmentSlot = false)
+    {
+        GameObject[] targetSlots = isEquipmentSlot ? equipmentSlots : slots;
+
+        if (slotIndex >= 0 && slotIndex < targetSlots.Length)
+        {
+            if (targetSlots[slotIndex].transform.childCount > 0)
+            {
+                Destroy(targetSlots[slotIndex].transform.GetChild(0).gameObject);
+            }
+            if (!isEquipmentSlot)
+            {
+                isFull[slotIndex] = false;
+            }
+        }
     }
 
     private void ApplyItemEffects(ItemData itemData, bool apply)
