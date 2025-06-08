@@ -122,6 +122,7 @@ public class BattleManager : MonoBehaviour
             ui.ShowMessage("Ты победил!");
             EnemyDataTransfer.Instance.shouldDestroyEnemy = true;
             PlayerPrefs.SetString("SceneSave", "SampleScene");
+            PlayerStats.Instance.GainEXP(enemy.data.maxHP / 2);
             SceneManager.LoadScene("SampleScene");
             isPlayerTurn = false;
             return;

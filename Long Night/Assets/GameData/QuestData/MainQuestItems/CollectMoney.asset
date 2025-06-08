@@ -23,5 +23,8 @@ MonoBehaviour:
     description: 
     targetID: coin
     requiredAmount: 3
-  rewards: []
+  rewards:
+  - type: 1
+    itemID: 
+    amount: 10
   requirements: []

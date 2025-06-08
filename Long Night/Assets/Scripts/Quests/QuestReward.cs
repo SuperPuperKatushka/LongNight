@@ -15,7 +15,6 @@ public class ItemReward : QuestReward
 
     public override void GiveReward()
     {
-        Debug.Log("GiveReward");
         ItemGiver.Instance.GiveItem(itemID);
     }
 }
@@ -27,6 +26,6 @@ public class ExperienceReward : QuestReward
 
     public override void GiveReward()
     {
-        //PlayerStats.AddExperience(amount);
+        PlayerStats.Instance.GainEXP(amount);
     }
 }

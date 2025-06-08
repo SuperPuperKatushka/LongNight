@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: "\u041C\u0430\u043B\u0433\u0440\u0430\u0445"
   enemyType: 0
-  maxHP: 1000
+  maxHP: 500
   attackPower: 25
   defensePower: 20
   manaPool: 7

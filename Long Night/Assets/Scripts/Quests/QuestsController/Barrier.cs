@@ -25,7 +25,6 @@ public class Barrier : MonoBehaviour
 
     private void CheckQuest()
     {
-        Debug.Log("IsQuestActive() " + IsQuestActive());
         if (isDestroyed) return;
 
         // Если квест активен - разрушаем барьер
@@ -55,8 +54,6 @@ public class Barrier : MonoBehaviour
 
     private void DestroyBarrier()
     {
-        // Визуальные эффекты можно добавить здесь
-        Debug.Log("Барьер разрушен!");
 
         // Отключаем коллайдер и рендеринг
         if (TryGetComponent<CapsuleCollider2D>(out var collider))

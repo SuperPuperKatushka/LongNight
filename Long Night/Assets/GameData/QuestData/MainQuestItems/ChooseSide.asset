@@ -23,5 +23,8 @@ MonoBehaviour:
     description: 
     targetID: malgrah
     requiredAmount: 1
-  rewards: []
+  rewards:
+  - type: 1
+    itemID: 
+    amount: 10
   requirements: []
